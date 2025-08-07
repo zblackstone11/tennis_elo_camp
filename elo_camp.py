@@ -45,7 +45,7 @@ def ensure_player(players, name):
         }
     return players[name]
 
-K_FACTOR = 24
+K_FACTOR = 36
 
 def expected_score(rating_a, rating_b):
     return 1 / (1 + 10 ** ((rating_b - rating_a) / 400))
