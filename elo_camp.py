@@ -36,6 +36,17 @@ def save_history(history):
     with open(HISTORY_FILE, "w") as f:
         json.dump(history, f, indent=2)
 
+# Add a player with specified ratings
+def add_player(players, name, singles_elo=1000, doubles_elo=1000):
+    if name in players:
+        raise ValueError(f"Player '{name}' already exists.")
+    players[name] = {
+        "singles_elo": singles_elo,
+        "doubles_elo": doubles_elo,
+        "last_match_date": str(date.today())
+    }
+    return players[name]
+
 def ensure_player(players, name):
     if name not in players:
         players[name] = {
@@ -125,6 +136,12 @@ if __name__ == "__main__":
     pl.add_argument("--mode", choices=["singles", "doubles"], default="singles")
     pl.add_argument("--top", type=int, default=10)
 
+    # add_player
+    pa = sub.add_parser("add_player", help="Add a player with a set rating")
+    pa.add_argument("name", help="Player name")
+    pa.add_argument("--singles_elo", type=float, default=1000, help="Initial singles Elo rating")
+    pa.add_argument("--doubles_elo", type=float, default=1000, help="Initial doubles Elo rating")
+
     args = parser.parse_args()
     players = load_players()
 
@@ -163,3 +180,11 @@ if __name__ == "__main__":
         print(f"{args.mode.title()} Leaderboard:")
         for name, data in sorted_players:
             print(f"{name}: {data[key]:.1f}")
+
+    elif args.command == "add_player":
+        try:
+            add_player(players, args.name, args.singles_elo, args.doubles_elo)
+            save_players(players)
+            print(f"Added player {args.name} with singles Elo {args.singles_elo} and doubles Elo {args.doubles_elo}")
+        except ValueError as e:
+            print(e)

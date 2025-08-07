@@ -45,6 +45,7 @@ python elo_camp.py record_singles <player_a> <player_b> <games_a> <games_b> [--k
   python elo_camp.py record_singles Alice Bob 6 3 --kind=set
   ```
 
+
 ### Record a Doubles Match
 ```
 python elo_camp.py record_doubles <team_a1> <team_a2> <team_b1> <team_b2> <games_a> <games_b> [--kind=set|tiebreak|super_tiebreak]
@@ -52,6 +53,16 @@ python elo_camp.py record_doubles <team_a1> <team_a2> <team_b1> <team_b2> <games
 - Example:
   ```bash
   python elo_camp.py record_doubles Alice Bob Charlie Dana 10 7 --kind=super_tiebreak
+  ```
+
+### Add a Player with a Set Rating
+```
+python elo_camp.py add_player <name> [--singles_elo <rating>] [--doubles_elo <rating>]
+```
+- Adds a new player with the specified singles and/or doubles Elo rating (default 1000 for each).
+- Example:
+  ```bash
+  python elo_camp.py add_player Eve --singles_elo 1200 --doubles_elo 1100
   ```
 
 ### View Leaderboard
