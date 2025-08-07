@@ -1,0 +1,22 @@
+{
+  "Alice": {
+    "singles_elo": 1005.85721960641,
+    "doubles_elo": 1006.797739058859,
+    "last_match_date": "2025-08-06"
+  },
+  "Bob": {
+    "singles_elo": 994.14278039359,
+    "doubles_elo": 1004.6159208770407,
+    "last_match_date": "2025-08-06"
+  },
+  "Charlie": {
+    "singles_elo": 1000.9230769230769,
+    "doubles_elo": 995.3840791229593,
+    "last_match_date": "2025-08-06"
+  },
+  "Dana": {
+    "singles_elo": 999.0769230769231,
+    "doubles_elo": 993.202260941141,
+    "last_match_date": "2025-08-06"
+  }
+}

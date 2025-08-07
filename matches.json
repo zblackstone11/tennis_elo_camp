@@ -1,0 +1,98 @@
+[
+  {
+    "timestamp": "2025-08-06T19:05:00.996237",
+    "type": "singles",
+    "players": [
+      "Alice",
+      "Bob"
+    ],
+    "games": [
+      6,
+      3
+    ],
+    "kind": "set"
+  },
+  {
+    "timestamp": "2025-08-06T19:05:11.400584",
+    "type": "singles",
+    "players": [
+      "Charlie",
+      "Dana"
+    ],
+    "games": [
+      7,
+      6
+    ],
+    "kind": "tiebreak"
+  },
+  {
+    "timestamp": "2025-08-06T19:05:20.114481",
+    "type": "singles",
+    "players": [
+      "Bob",
+      "Alice"
+    ],
+    "games": [
+      10,
+      8
+    ],
+    "kind": "super_tiebreak"
+  },
+  {
+    "timestamp": "2025-08-06T19:05:25.869723",
+    "type": "doubles",
+    "teams": [
+      [
+        "Alice",
+        "Bob"
+      ],
+      [
+        "Charlie",
+        "Dana"
+      ]
+    ],
+    "games": [
+      6,
+      2
+    ],
+    "kind": "set"
+  },
+  {
+    "timestamp": "2025-08-06T19:05:34.228510",
+    "type": "doubles",
+    "teams": [
+      [
+        "Charlie",
+        "Dana"
+      ],
+      [
+        "Alice",
+        "Bob"
+      ]
+    ],
+    "games": [
+      8,
+      6
+    ],
+    "kind": "tiebreak"
+  },
+  {
+    "timestamp": "2025-08-06T19:05:47.095129",
+    "type": "doubles",
+    "teams": [
+      [
+        "Alice",
+        "Charlie"
+      ],
+      [
+        "Bob",
+        "Dana"
+      ]
+    ],
+    "games": [
+      12,
+      10
+    ],
+    "kind": "super_tiebreak"
+  }
+]
