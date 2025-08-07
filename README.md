@@ -106,9 +106,23 @@ python elo_camp.py show_player <name>
   games_won / (games_won + games_lost)
   ```
 - **Rating update**:
+  Rating changes are calculated **per set or tiebreak** using the expected and actual scores, with tiebreak sets automatically scaled within these calculations. After summing the rating changes from all sets and tiebreaks, a match-win bonus is applied to the total rating adjustment. Note that the `tiebreak_scaling` is not an additional additive term but is incorporated as part of the per-set calculation of the actual score `S`.
+
+  The rating update formula per set is:
+
   ```
-  R_new = R_old + K * (S - E) + match_win_bonus + tiebreak_scaling
+  R_new = R_old + K * (S - E) + match_win_bonus
   ```
+
+  where:
+  - `R_old` is the player's rating before the set,
+  - `K` is the base K-factor adjusted per set,
+  - `S` is the actual score for the set (with tiebreak scaling applied),
+  - `E` is the expected score,
+  - `match_win_bonus` is added once after summing all per-set rating changes.
+
+  The per-set rating changes `(K * (S - E))` are summed over all sets and tiebreaks, and then the `match_win_bonus` is added once to the total rating adjustment.
+
 - Matches consist of multiple sets, each scored individually.
 - Tiebreaks are explicitly indicated by the `tiebreak` keyword; they are not inferred from scores.
 - Match winner is determined by the number of sets won, not total games.
@@ -125,13 +139,27 @@ python elo_camp.py show_player <name>
 
 ### Rating Difference Examples
 
-| ΔR = R_A − R_B | Win Probability (E) | Odds (wins : losses) |
-|----------------|---------------------|----------------------|
-| 0              | 50%                 | 1 : 1                |
-| 100            | 64%                 | 1.78 : 1             |
-| 200            | 75.9%               | 3.17 : 1             |
-| 300            | 84.9%               | 5.62 : 1             |
-| 400            | 90.9%               | 10 : 1               |
+| ΔR = R_A − R_B | Win Probability (E_A) | Odds (wins : losses) |
+|----------------|-----------------------|----------------------|
+| 0              | 50.0%                 | 1.00 : 1             |
+| 50             | 57.1%                 | 1.33 : 1             |
+| 100            | 64.0%                 | 1.78 : 1             |
+| 150            | 70.3%                 | 2.37 : 1             |
+| 200            | 76.0%                 | 3.16 : 1             |
+| 250            | 80.8%                 | 4.22 : 1             |
+| 300            | 84.9%                 | 5.62 : 1             |
+| 350            | 88.2%                 | 7.50 : 1             |
+| 400            | 90.9%                 | 10.00 : 1            |
+| 450            | 93.0%                 | 13.34 : 1            |
+| 500            | 94.7%                 | 17.78 : 1            |
+| 550            | 96.0%                 | 23.71 : 1            |
+| 600            | 96.9%                 | 31.62 : 1            |
+| 650            | 97.7%                 | 42.17 : 1            |
+| 700            | 98.3%                 | 56.23 : 1            |
+| 750            | 98.7%                 | 74.99 : 1            |
+| 800            | 99.0%                 | 100.00 : 1           |
+
+*Notes:* `E_A = 1 / (1 + 10^{-(ΔR/400)})`. Odds = `E_A / (1 − E_A)`. The table is symmetric: a negative ΔR just swaps the roles of A and B.
 
 ## Data Files
 
