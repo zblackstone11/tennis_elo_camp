@@ -1,8 +1,6 @@
-
-
 # Tennis Elo Camp Tracker
 
-A command-line tool to track player ratings for a tennis camp using a games-weighted Elo system. Supports singles and doubles matches, tiebreaks, super-tiebreaks, match history logging, and player management.
+A command-line tool to track player ratings for a tennis camp using a games-weighted Elo system. Supports singles and doubles matches, explicit tiebreaks, multi-set matches, match history logging, and player management.
 
 ## Project Structure
 
@@ -36,23 +34,26 @@ tennis_elo_camp/
 
 Run commands with the `python elo_camp.py` prefix:
 
-### Record a Singles Match
+### Record a Singles Match with Multiple Sets
 ```
-python elo_camp.py record_singles <player_a> <player_b> <games_a> <games_b> [--kind=set|tiebreak|super_tiebreak]
+python elo_camp.py record_singles <player_a> <player_b> <games_a>-<games_b>[kind] [<games_a>-<games_b>[kind] ...]
 ```
+- Each set is recorded as `<games_a>-<games_b>[kind]`, where `[kind]` is optional and should be in square brackets with either `set` or `tiebreak`.
+- The match can include multiple sets.
+- The winner is determined by the number of sets won, not total games.
 - Example:
   ```bash
-  python elo_camp.py record_singles Alice Bob 6 3 --kind=set
+  python elo_camp.py record_singles Alice Bob 6-4[set] 7-6[tiebreak] 5-7[set]
   ```
 
-
-### Record a Doubles Match
+### Record a Doubles Match with Multiple Sets
 ```
-python elo_camp.py record_doubles <team_a1> <team_a2> <team_b1> <team_b2> <games_a> <games_b> [--kind=set|tiebreak|super_tiebreak]
+python elo_camp.py record_doubles <team_a1> <team_a2> <team_b1> <team_b2> <games_a>-<games_b>[kind] [<games_a>-<games_b>[kind] ...]
 ```
+- Similar to singles, each set is `<games_a>-<games_b>[kind]` with optional kind.
 - Example:
   ```bash
-  python elo_camp.py record_doubles Alice Bob Charlie Dana 10 7 --kind=super_tiebreak
+  python elo_camp.py record_doubles Alice Bob Charlie Dana 6-3[set] 4-6[set] 7-6[tiebreak]
   ```
 
 ### Add a Player with a Set Rating
@@ -87,6 +88,12 @@ python elo_camp.py delete_player <player_name>
 ```
 - Remove a player and their rating data.
 
+### Show Player Details
+```
+python elo_camp.py show_player <name>
+```
+- Displays current and peak singles and doubles ratings along with the dates those peaks were achieved.
+
 ## Elo System Details
 
 - **Initial rating**: All players start at **1000**.  
@@ -100,16 +107,21 @@ python elo_camp.py delete_player <player_name>
   ```
 - **Rating update**:
   ```
-  R_new = R_old + K * (S - E)
+  R_new = R_old + K * (S - E) + match_win_bonus + tiebreak_scaling
   ```
+- Matches consist of multiple sets, each scored individually.
+- Tiebreaks are explicitly indicated by the `tiebreak` keyword; they are not inferred from scores.
+- Match winner is determined by the number of sets won, not total games.
 
 ### Constants
 
-| Constant      | Value | Purpose                                           |
-|---------------|-------|---------------------------------------------------|
-| Starting Elo  | 1000  | Baseline rating for all new players               |
-| Scale factor  | 400   | Δ of 400 ⇒ ~10:1 odds in win probability          |
-| K-factor      | 24    | Sensitivity of rating changes per match           |
+| Constant           | Value | Purpose                                           |
+|--------------------|-------|---------------------------------------------------|
+| Starting Elo       | 1000  | Baseline rating for all new players               |
+| Scale factor       | 400   | Δ of 400 ⇒ ~10:1 odds in win probability          |
+| Base K-factor      | 80    | Sensitivity of rating changes per match           |
+| Match-win bonus    | Variable | Additional rating bonus for winning the match  |
+| Tiebreak scaling   | Variable | Adjusts rating impact for tiebreak sets         |
 
 ### Rating Difference Examples
 
@@ -129,6 +141,10 @@ python elo_camp.py delete_player <player_name>
     "Alice": {
       "singles_elo": 1024.5,
       "doubles_elo": 1012.3,
+      "singles_peak_elo": 1050.0,
+      "singles_peak_date": "2025-08-01",
+      "doubles_peak_elo": 1020.0,
+      "doubles_peak_date": "2025-07-20",
       "last_match_date": "2025-08-06"
     },
     ...
@@ -141,8 +157,11 @@ python elo_camp.py delete_player <player_name>
       "timestamp": "2025-08-06T18:45:12",
       "type": "singles",
       "players": ["Alice", "Bob"],
-      "games": [6, 3],
-      "kind": "set"
+      "sets": [
+        {"score": "6-4", "kind": "set"},
+        {"score": "7-6", "kind": "tiebreak"},
+        {"score": "5-7", "kind": "set"}
+      ]
     },
     ...
   ]

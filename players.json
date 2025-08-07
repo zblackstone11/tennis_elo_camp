@@ -1,1 +1,112 @@
-{}
+{
+  "Jack_L": {
+    "singles_elo": 1102.1882595362322,
+    "doubles_elo": 1100.0,
+    "last_match_date": "2025-08-07"
+  },
+  "Cadie": {
+    "singles_elo": 1250.0,
+    "doubles_elo": 1250.0,
+    "last_match_date": "2025-08-07"
+  },
+  "Noah": {
+    "singles_elo": 1247.8117404637678,
+    "doubles_elo": 1250.0,
+    "last_match_date": "2025-08-07"
+  },
+  "Ben": {
+    "singles_elo": 1100.0,
+    "doubles_elo": 1106.8387970339286,
+    "last_match_date": "2025-08-07"
+  },
+  "Cooper": {
+    "singles_elo": 1100.0,
+    "doubles_elo": 1100.0,
+    "last_match_date": "2025-08-07"
+  },
+  "Liam": {
+    "singles_elo": 1100.0,
+    "doubles_elo": 1100.0,
+    "last_match_date": "2025-08-07"
+  },
+  "Wes": {
+    "singles_elo": 1000.0,
+    "doubles_elo": 1000.0,
+    "last_match_date": "2025-08-07"
+  },
+  "Adam": {
+    "singles_elo": 1100.0,
+    "doubles_elo": 1100.0,
+    "last_match_date": "2025-08-07"
+  },
+  "Harvey": {
+    "singles_elo": 1000.0,
+    "doubles_elo": 1000.0,
+    "last_match_date": "2025-08-07"
+  },
+  "Jill": {
+    "singles_elo": 1100.0,
+    "doubles_elo": 1100.0,
+    "last_match_date": "2025-08-07"
+  },
+  "Spencer": {
+    "singles_elo": 1000.0,
+    "doubles_elo": 1000.0,
+    "last_match_date": "2025-08-07"
+  },
+  "Aaron": {
+    "singles_elo": 1000.0,
+    "doubles_elo": 993.1612029660714,
+    "last_match_date": "2025-08-07"
+  },
+  "Jack_W": {
+    "singles_elo": 900.0,
+    "doubles_elo": 893.1612029660714,
+    "last_match_date": "2025-08-07"
+  },
+  "Rishaan": {
+    "singles_elo": 950.0,
+    "doubles_elo": 956.8387970339286,
+    "last_match_date": "2025-08-07"
+  },
+  "Ishan": {
+    "singles_elo": 800.0,
+    "doubles_elo": 800.0,
+    "last_match_date": "2025-08-07"
+  },
+  "Aliza": {
+    "singles_elo": 800.0,
+    "doubles_elo": 800.0,
+    "last_match_date": "2025-08-07"
+  },
+  "Rhys": {
+    "singles_elo": 950.0,
+    "doubles_elo": 950.0,
+    "last_match_date": "2025-08-07"
+  },
+  "Mahika": {
+    "singles_elo": 1000.0,
+    "doubles_elo": 1000.0,
+    "last_match_date": "2025-08-07"
+  },
+  "Anderson": {
+    "singles_elo": 750.0,
+    "doubles_elo": 750.0,
+    "last_match_date": "2025-08-07"
+  },
+  "Emma": {
+    "singles_elo": 950.0,
+    "doubles_elo": 950.0,
+    "last_match_date": "2025-08-07"
+  },
+  "Fake_Noah": {
+    "singles_elo": 1156.0694989048548,
+    "doubles_elo": 1300.0,
+    "last_match_date": "2025-08-07"
+  },
+  "Fake_Liam": {
+    "singles_elo": 893.9305010951454,
+    "doubles_elo": 800.0,
+    "last_match_date": "2025-08-07"
+  }
+}
