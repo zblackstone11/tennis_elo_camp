@@ -79,6 +79,22 @@ K_MATCH_DOUBLES = 8  # applied per TEAM, then split evenly
 # Tiebreak scaling: treat 4 points as ~1 game so TBs count less but still more than most games
 POINTS_PER_GAME_TIEBREAK = 4.0
 
+# Margin of Victory scaling (per set): boosts decisive sets slightly
+ALPHA_MOV = 0.20  # max +20% boost on a shutout set; ~+8% on a 6-4
+
+# Tiebreak weight vs. a full set (proportional to TB length, clamped)
+AVG_GAMES_PER_SET = 10.0   # typical games in a set
+TB_MIN_FRACTION = 0.30     # shortest TB still counts ~30% of a set
+TB_MAX_FRACTION = 0.70     # marathon TB capped at ~70% of a set
+
+def mov_multiplier(actual_score):
+    """Return a per-set multiplier based on decisiveness.
+    actual_score is A's fraction in [0,1] for that set (after TB scaling).
+    Multiplier = 1 + ALPHA_MOV * |2S - 1|, so 7-6 ~1.02, 6-4 ~1.08, 6-0 = 1.20.
+    """
+    s = max(0.0, min(1.0, float(actual_score)))
+    return 1.0 + ALPHA_MOV * abs(2.0 * s - 1.0)
+
 def expected_score(rating_a, rating_b):
     return 1 / (1 + 10 ** ((rating_b - rating_a) / 400))
 
@@ -133,9 +149,16 @@ def record_singles(players, name_a, name_b, games_a, games_b, kind="set"):
     total = A_eq + B_eq
     act_a = A_eq / total if total else 0.5
     act_b = 1 - act_a
+    # Margin-of-victory multiplier (same for both sides to keep zero-sum)
+    k_eff = K_BASE * mov_multiplier(act_a)
+    # If this token is a standalone tiebreak, scale K by TB length vs a full set
+    if kind == "tiebreak":
+        eq_total = A_eq + B_eq  # already in game-equivalents via POINTS_PER_GAME_TIEBREAK
+        tb_fraction = max(TB_MIN_FRACTION, min(TB_MAX_FRACTION, eq_total / AVG_GAMES_PER_SET))
+        k_eff *= tb_fraction
     # Update ratings
-    p_a["singles_elo"] = update_rating(p_a["singles_elo"], exp_a, act_a, k=K_BASE)
-    p_b["singles_elo"] = update_rating(p_b["singles_elo"], exp_b, act_b, k=K_BASE)
+    p_a["singles_elo"] = update_rating(p_a["singles_elo"], exp_a, act_a, k=k_eff)
+    p_b["singles_elo"] = update_rating(p_b["singles_elo"], exp_b, act_b, k=k_eff)
     # Update last match date
     today = str(date.today())
     p_a["last_match_date"] = today
@@ -157,15 +180,21 @@ def record_doubles(players, team_a, team_b, games_a, games_b, kind="set"):
     act_a = A_eq / total if total else 0.5
     act_b = 1 - act_a
     today = str(date.today())
+    # Margin-of-victory multiplier for doubles set
+    k_eff = K_BASE * mov_multiplier(act_a)
+    if kind == "tiebreak":
+        eq_total = A_eq + B_eq  # already in game-equivalents
+        tb_fraction = max(TB_MIN_FRACTION, min(TB_MAX_FRACTION, eq_total / AVG_GAMES_PER_SET))
+        k_eff *= tb_fraction
     # Update each individual
     for name in team_a:
         old = players[name]["doubles_elo"]
-        players[name]["doubles_elo"] = update_rating(old, exp_a, act_a, k=K_BASE)
+        players[name]["doubles_elo"] = update_rating(old, exp_a, act_a, k=k_eff)
         players[name]["last_match_date"] = today
         maybe_update_peak(players[name], "doubles", today)
     for name in team_b:
         old = players[name]["doubles_elo"]
-        players[name]["doubles_elo"] = update_rating(old, exp_b, act_b, k=K_BASE)
+        players[name]["doubles_elo"] = update_rating(old, exp_b, act_b, k=k_eff)
         players[name]["last_match_date"] = today
         maybe_update_peak(players[name], "doubles", today)
 
