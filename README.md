@@ -36,24 +36,28 @@ Run commands with the `python elo_camp.py` prefix:
 
 ### Record a Singles Match with Multiple Sets
 ```
-python elo_camp.py record_singles <player_a> <player_b> <games_a>-<games_b>[kind] [<games_a>-<games_b>[kind] ...]
+python elo_camp.py record_series_singles <player_a> <player_b> <games_a>-<games_b>[kind] [<games_a>-<games_b>[kind] ...]
 ```
-- Each set is recorded as `<games_a>-<games_b>[kind]`, where `[kind]` is optional and should be in square brackets with either `set` or `tiebreak`.
+- Each set is recorded as `<games_a>-<games_b>[kind]`, where `[kind]` is optional.
+- If the kind is omitted, the system treats the score as a normal set.
+- Use `[tiebreak]` explicitly only when indicating a tiebreak set.
 - The match can include multiple sets.
 - The winner is determined by the number of sets won, not total games.
 - Example:
   ```bash
-  python elo_camp.py record_singles Alice Bob 6-4[set] 7-6[tiebreak] 5-7[set]
+  python elo_camp.py record_series_singles Alice Bob 6-4 "7-6[tiebreak]" 5-7
   ```
 
 ### Record a Doubles Match with Multiple Sets
 ```
-python elo_camp.py record_doubles <team_a1> <team_a2> <team_b1> <team_b2> <games_a>-<games_b>[kind] [<games_a>-<games_b>[kind] ...]
+python elo_camp.py record_series_doubles <team_a1> <team_a2> <team_b1> <team_b2> <games_a>-<games_b>[kind] [<games_a>-<games_b>[kind] ...]
 ```
 - Similar to singles, each set is `<games_a>-<games_b>[kind]` with optional kind.
+- If the kind is omitted, the system treats the score as a normal set.
+- Use `[tiebreak]` explicitly only when indicating a tiebreak set.
 - Example:
   ```bash
-  python elo_camp.py record_doubles Alice Bob Charlie Dana 6-3[set] 4-6[set] 7-6[tiebreak]
+  python elo_camp.py record_series_doubles Alice Bob Charlie Dana 6-3 4-6 "7-6[tiebreak]"
   ```
 
 ### Add a Player with a Set Rating

@@ -1,33 +1,183 @@
 [
   {
-    "timestamp": "2025-08-07T13:26:35.908277",
-    "type": "singles",
+    "timestamp": "2025-08-07T19:04:42.274932",
+    "type": "singles_series",
     "players": [
       "Noah",
       "Jack_L"
     ],
-    "games": [
-      6,
-      2
+    "sets": [
+      {
+        "games": [
+          6,
+          2
+        ],
+        "kind": "set"
+      },
+      {
+        "games": [
+          6,
+          4
+        ],
+        "kind": "set"
+      }
     ],
-    "kind": "set"
+    "winner": "A"
   },
   {
-    "timestamp": "2025-08-07T13:26:49.285520",
-    "type": "singles",
+    "timestamp": "2025-08-07T19:13:07.484426",
+    "type": "doubles_series",
+    "teams": [
+      [
+        "Spencer",
+        "Aliza"
+      ],
+      [
+        "Emma",
+        "Anderson"
+      ]
+    ],
+    "sets": [
+      {
+        "games": [
+          1,
+          6
+        ],
+        "kind": "set"
+      },
+      {
+        "games": [
+          6,
+          2
+        ],
+        "kind": "set"
+      },
+      {
+        "games": [
+          6,
+          10
+        ],
+        "kind": "tiebreak"
+      }
+    ],
+    "winner": "B"
+  },
+  {
+    "timestamp": "2025-08-07T19:16:09.897952",
+    "type": "doubles_series",
+    "teams": [
+      [
+        "Jill",
+        "Rhys"
+      ],
+      [
+        "Liam",
+        "Jack_L"
+      ]
+    ],
+    "sets": [
+      {
+        "games": [
+          1,
+          6
+        ],
+        "kind": "set"
+      },
+      {
+        "games": [
+          6,
+          3
+        ],
+        "kind": "set"
+      },
+      {
+        "games": [
+          10,
+          5
+        ],
+        "kind": "tiebreak"
+      }
+    ],
+    "winner": "A"
+  },
+  {
+    "timestamp": "2025-08-07T19:17:18.069424",
+    "type": "singles_series",
     "players": [
-      "Noah",
-      "Jack_L"
+      "Jack_W",
+      "Aaron"
     ],
-    "games": [
-      6,
-      4
+    "sets": [
+      {
+        "games": [
+          3,
+          6
+        ],
+        "kind": "set"
+      },
+      {
+        "games": [
+          0,
+          6
+        ],
+        "kind": "set"
+      }
     ],
-    "kind": "set"
+    "winner": "B"
   },
   {
-    "timestamp": "2025-08-07T13:28:01.507165",
-    "type": "doubles",
+    "timestamp": "2025-08-07T19:18:04.174247",
+    "type": "singles_series",
+    "players": [
+      "Ishan",
+      "Rishaan"
+    ],
+    "sets": [
+      {
+        "games": [
+          4,
+          6
+        ],
+        "kind": "set"
+      },
+      {
+        "games": [
+          6,
+          2
+        ],
+        "kind": "set"
+      },
+      {
+        "games": [
+          5,
+          7
+        ],
+        "kind": "tiebreak"
+      }
+    ],
+    "winner": "B"
+  },
+  {
+    "timestamp": "2025-08-07T19:18:44.593633",
+    "type": "singles_series",
+    "players": [
+      "Emma",
+      "Anderson"
+    ],
+    "sets": [
+      {
+        "games": [
+          6,
+          2
+        ],
+        "kind": "set"
+      }
+    ],
+    "winner": "A"
+  },
+  {
+    "timestamp": "2025-08-07T19:19:29.731797",
+    "type": "doubles_series",
     "teams": [
       [
         "Rishaan",
@@ -38,146 +188,22 @@
         "Jack_W"
       ]
     ],
-    "games": [
-      6,
-      2
+    "sets": [
+      {
+        "games": [
+          6,
+          2
+        ],
+        "kind": "set"
+      },
+      {
+        "games": [
+          6,
+          3
+        ],
+        "kind": "set"
+      }
     ],
-    "kind": "set"
-  },
-  {
-    "timestamp": "2025-08-07T13:28:07.752170",
-    "type": "doubles",
-    "teams": [
-      [
-        "Rishaan",
-        "Ben"
-      ],
-      [
-        "Aaron",
-        "Jack_W"
-      ]
-    ],
-    "games": [
-      6,
-      3
-    ],
-    "kind": "set"
-  },
-  {
-    "timestamp": "2025-08-07T13:40:22.399679",
-    "type": "singles",
-    "players": [
-      "Fake_Noah",
-      "Fake_Liam"
-    ],
-    "games": [
-      3,
-      6
-    ],
-    "kind": "set"
-  },
-  {
-    "timestamp": "2025-08-07T13:41:13.615680",
-    "type": "singles",
-    "players": [
-      "Fake_Noah",
-      "Fake_Liam"
-    ],
-    "games": [
-      3,
-      6
-    ],
-    "kind": "set"
-  },
-  {
-    "timestamp": "2025-08-07T13:41:29.179819",
-    "type": "singles",
-    "players": [
-      "Fake_Noah",
-      "Fake_Liam"
-    ],
-    "games": [
-      0,
-      6
-    ],
-    "kind": "set"
-  },
-  {
-    "timestamp": "2025-08-07T13:42:11.993165",
-    "type": "singles",
-    "players": [
-      "Fake_Noah",
-      "Fake_Liam"
-    ],
-    "games": [
-      0,
-      6
-    ],
-    "kind": "set"
-  },
-  {
-    "timestamp": "2025-08-07T13:44:25.767817",
-    "type": "singles",
-    "players": [
-      "Fake_Noah",
-      "Fake_Liam"
-    ],
-    "games": [
-      0,
-      6
-    ],
-    "kind": "set"
-  },
-  {
-    "timestamp": "2025-08-07T13:44:59.028600",
-    "type": "singles",
-    "players": [
-      "Fake_Noah",
-      "Fake_Liam"
-    ],
-    "games": [
-      0,
-      6
-    ],
-    "kind": "set"
-  },
-  {
-    "timestamp": "2025-08-07T13:45:23.988745",
-    "type": "singles",
-    "players": [
-      "Fake_Noah",
-      "Fake_Liam"
-    ],
-    "games": [
-      0,
-      6
-    ],
-    "kind": "set"
-  },
-  {
-    "timestamp": "2025-08-07T13:45:59.805273",
-    "type": "singles",
-    "players": [
-      "Fake_Noah",
-      "Fake_Liam"
-    ],
-    "games": [
-      6,
-      0
-    ],
-    "kind": "set"
-  },
-  {
-    "timestamp": "2025-08-07T13:47:57.215497",
-    "type": "singles",
-    "players": [
-      "Fake_Noah",
-      "Fake_Liam"
-    ],
-    "games": [
-      0,
-      6
-    ],
-    "kind": "set"
+    "winner": "A"
   }
 ]
