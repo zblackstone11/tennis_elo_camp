@@ -110,67 +110,96 @@ python elo_camp.py show_player <name>
   games_won / (games_won + games_lost)
   ```
 - **Rating update**:
-  Rating changes are calculated **per set or tiebreak** using the expected and actual scores, with tiebreak sets automatically scaled within these calculations. After summing the rating changes from all sets and tiebreaks, a match-win bonus is applied to the total rating adjustment. Note that the `tiebreak_scaling` is not an additional additive term but is incorporated as part of the per-set calculation of the actual score `S`.
+
+  Ratings are updated **per set or tiebreak** using the expected and actual scores, with tiebreak sets weighted proportionally based on their length relative to a typical set. The per-set rating change incorporates a margin-of-victory scaling multiplier that adjusts the effective K-factor depending on how decisive the set win was.
 
   The rating update formula per set is:
 
   ```
-  R_new = R_old + K * (S - E) + match_win_bonus
+  ΔR_set = K_eff × (S - E)
   ```
 
   where:
-  - `R_old` is the player's rating before the set,
-  - `K` is the base K-factor adjusted per set,
-  - `S` is the actual score for the set (with tiebreak scaling applied),
-  - `E` is the expected score,
-  - `match_win_bonus` is added once after summing all per-set rating changes.
+  - `K_eff` = `K_BASE` × margin-of-victory multiplier × tiebreak fraction (if applicable),
+  - `S` is the actual score for the set,
+  - `E` is the expected score for the set.
 
-  The per-set rating changes `(K * (S - E))` are summed over all sets and tiebreaks, and then the `match_win_bonus` is added once to the total rating adjustment.
+  After summing the rating changes from all sets and tiebreaks, a **match-win bonus** is applied once per match to the winner's total rating adjustment:
 
-- Matches consist of multiple sets, each scored individually.
+  ```
+  ΔR_total = Σ ΔR_set + match_win_bonus
+  ```
+
+  The match-win bonus is calculated as:
+
+  ```
+  match_win_bonus = K_BASE × MATCH_WIN_BONUS_FRACTION × (1 - E_match)
+  ```
+
+  where `E_match` is the expected match win probability for the winner (computed from the players' pre-match ratings).
+
+- Matches consist of multiple sets, each scored and weighted individually.
 - Tiebreaks are explicitly indicated by the `tiebreak` keyword; they are not inferred from scores.
 - Match winner is determined by the number of sets won, not total games.
 
 ### Margin-of-Victory Scaling
 
-An additional constant, **Margin-of-Victory Scaling** (`ALPHA_MOV`), is applied to adjust the rating change magnitude based on how decisive a set win was. This scaling rewards more dominant set victories and slightly dampens the impact of very close sets, improving predictive accuracy without overly punishing narrow losses.
+The **Margin-of-Victory (MOV) Scaling** adjusts the magnitude of rating changes based on the decisiveness of each set win, rewarding more dominant set victories and slightly dampening the impact of very close sets.
 
-The margin-of-victory multiplier per set is calculated as:
+The MOV multiplier per set is calculated as:
 
 ```
-Multiplier = 1 + ALPHA_MOV * |2S - 1|
+MOV_multiplier = 1 + ALPHA_MOV × |2S - 1|
 ```
 
 where:
 - `S` is the actual score for the set (games won divided by total games),
-- `ALPHA_MOV` is the margin-of-victory scaling constant (e.g., 0.20).
+- `ALPHA_MOV` is the margin-of-victory scaling constant (default **0.20**).
 
-This multiplier is applied to the per-set rating update, effectively increasing the K-factor for more decisive set wins. For example:
+This multiplier is applied to the base K-factor for the set, effectively increasing the rating change for more decisive wins. For example:
 - A 6–0 set (S = 1) results in approximately a +20% rating change,
 - A close 7–6 set (S ≈ 0.54) results in about a +2% increase.
 
-This approach helps to reward more decisive set wins and slightly dampens close-set impacts, improving predictive accuracy while maintaining fairness.
+This approach rewards more decisive set wins and slightly reduces the impact of close-set results, improving predictive accuracy while maintaining fairness.
 
 ### Tiebreak Weighting (Proportional)
 
-Tiebreak tokens (entered as "10-8[tiebreak]", etc.) are intentionally worth **less than a full set**. We scale the effective K for tiebreaks by their length (in equivalent games) relative to a typical set, then clamp it so very short TBs don’t swing too much and very long TBs don’t count as more than a set.
+Tiebreak sets (entered as "10-8[tiebreak]", etc.) are intentionally weighted **less than a full set** to reflect their shorter length and lower impact on overall match outcome.
 
-Per tiebreak token:
+The effective K-factor for a tiebreak is scaled proportionally to its length in **equivalent games**, calculated as:
 
 ```
-TB fraction = clamp( (eq_total / AVG_GAMES_PER_SET), TB_MIN_FRACTION, TB_MAX_FRACTION )
-K_eff = K_BASE × mov_multiplier(S) × TB fraction
+eq_total = (points_won + points_lost) / 4
 ```
 
-- `eq_total` is the total **equivalent games** in the tiebreak using your points→games rule (points/4).
-- `AVG_GAMES_PER_SET` defaults to **10.0**.
-- Clamp defaults: `TB_MIN_FRACTION = 0.30`, `TB_MAX_FRACTION = 0.70`.
+This equivalent game count is then converted to a fraction of a typical set length (`AVG_GAMES_PER_SET`, default **10.0**), and clamped between minimum and maximum fractions:
 
-**Intuition:** a typical super tiebreak like "10-8[tiebreak]" counts for about **45%** of a normal set; a very short TB is clamped to **30%**; a marathon TB is capped at **70%**. This keeps TBs meaningful but clearly less impactful than full sets.
+```
+TB_fraction = clamp(eq_total / AVG_GAMES_PER_SET, TB_MIN_FRACTION, TB_MAX_FRACTION)
+```
 
-| AVG_GAMES_PER_SET       | 10.0     | Typical number of games in a set (for TB scaling) |
-| TB_MIN_FRACTION         | 0.30     | Minimum fraction of a set that a TB can count for |
-| TB_MAX_FRACTION         | 0.70     | Maximum fraction of a set that a TB can count for |
+where:
+- `TB_MIN_FRACTION` = 0.30 (minimum fraction of a set a tiebreak can count for),
+- `TB_MAX_FRACTION` = 0.70 (maximum fraction).
+
+The effective K-factor for the tiebreak is:
+
+```
+K_eff = K_BASE × MOV_multiplier × TB_fraction
+```
+
+**Intuition:**  
+- A typical super tiebreak like "10-8[tiebreak]" counts for about **45%** of a normal set;  
+- Very short tiebreaks are clamped to **30%**;  
+- Marathon tiebreaks are capped at **70%**.
+
+This keeps tiebreaks meaningful but clearly less impactful than full sets, reflecting their shorter duration and importance.
+
+| Constant                 | Value    | Purpose                                           |
+|--------------------------|----------|---------------------------------------------------|
+| AVG_GAMES_PER_SET        | 10.0     | Typical number of games in a set (for TB scaling) |
+| TB_MIN_FRACTION          | 0.30     | Minimum fraction of a set that a TB can count for |
+| TB_MAX_FRACTION          | 0.70     | Maximum fraction of a set that a TB can count for |
 
 ### Constants
 
@@ -179,10 +208,10 @@ K_eff = K_BASE × mov_multiplier(S) × TB fraction
 |--------------------------|----------|---------------------------------------------------|
 | Starting Elo             | 1000     | Baseline rating for all new players               |
 | Scale factor             | 400      | Δ of 400 ⇒ ~10:1 odds in win probability          |
-| Base K-factor            | 80       | Sensitivity of rating changes per match           |
-| Match-win bonus          | Variable | Additional rating bonus for winning the match     |
-| Tiebreak scaling         | Variable | Adjusts rating impact for tiebreak sets            |
+| Base K-factor            | 80       | Sensitivity of rating changes per set             |
+| Match-win bonus fraction | 0.10     | Fraction of K_BASE used as bonus for match winner |
 | Margin-of-Victory Scaling (ALPHA_MOV) | 0.20     | Adjusts rating changes based on decisiveness of set wins |
+| Tiebreak fraction clamp  | 0.30–0.70| Limits impact of very short or very long tiebreaks|
 
 ### Choosing K and Match Bonus
 
@@ -191,7 +220,7 @@ Recommended ranges for K-factor and match-win bonus, depending on your season/ev
 
 - **Short events (few matches):**
   - K ≈ 80–100
-  - Match bonus ≈ 10–15% of K
+  - Match bonus ≈ 8–15% of K
 - **Season-long (dozens of matches):**
   - K ≈ 40–60
   - Match bonus ≈ 8–12% of K
@@ -202,9 +231,9 @@ Recommended ranges for K-factor and match-win bonus, depending on your season/ev
 **High K:** Adapts quickly to new skill levels, but ratings are more volatile (large swings from upsets or streaks).  
 **Low K:** Ratings are more stable and resistant to random swings, but slow to reflect true changes in skill.
 
-**Match bonus** is applied **once per match** (to the total rating change), in addition to the per-set rating adjustments. This helps reward overall match wins beyond set-by-set performance.
+**Match bonus** is applied **once per match** (to the total rating change), in addition to the per-set rating adjustments. It is computed based on the winner's expected match probability and helps reward overall match wins beyond set-by-set performance.
 
-When using margin-of-victory scaling, the effective K-factor per set can vary slightly based on the scoreline, reflecting the decisiveness of each set. When tiebreak weighting is enabled, a tiebreak’s effective K is further reduced by its fraction, typically ~30–70% of a full set.
+When using margin-of-victory scaling, the effective K-factor per set varies slightly based on the scoreline, reflecting the decisiveness of each set. When tiebreak weighting is enabled, a tiebreak’s effective K-factor is further reduced by its fractional weight, typically between 30% and 70% of a full set.
 
 **Why these ranges?**  
 These K-factor and match bonus recommendations are based on real-world applications of Elo across sports and games. Shorter events need higher K to adjust quickly to new information, while longer seasons or ongoing ladders benefit from lower K to reduce volatility. The match bonus helps reward closing out matches in multi-set formats like tennis, as supported by empirical studies, improving predictive accuracy compared to set-only adjustments.
