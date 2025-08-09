@@ -1,0 +1,76 @@
+TENNIS CAMP – DAILY INSIGHTS (2025-08-08)
+
+Singles Highlights
+------------------
+• Cadie was the day’s biggest singles winner, going 2–0 against Ben and Noah. She gained +20.43 Elo, hitting a career-high 1570.43 and widening her lead at the top of the singles leaderboard.  
+• Jill had a strong singles win over Rhys, jumping +28.37 to a new personal best of 1228.37.  
+• Aaron shut out Ishan 6–0 in singles, gaining +17.14 to a career-best 1211.60.  
+• Jack_W bounced back from earlier losses in the week with a +61.58 gain, defeating Shreya 6–0.  
+• Ben picked up a win over Harvey (+26.88), reaching 1336.88 in singles, his highest to date.  
+• Shreya made her singles debut today — starting at 900, she went 0–2 but still sits at a respectable 832 after playing both top and mid-tier opponents.  
+• Biggest singles drop: Noah (-43.44), falling from 1338.34 to 1294.89 after a loss to Cadie.
+
+Doubles Highlights
+------------------
+• Noah & Jack_L took a 4–2 win over Cadie & Cooper, helping Noah gain +8.26 doubles Elo to a new high of 1358.26.  
+• Cadie, despite her singles dominance, had a tough doubles day, dropping -32.91 after two losses, ending at 1517.09 (still among the leaders).  
+• Spencer & Harvey edged Noah & Jack_L 7–6, giving Spencer a big +39.82 doubles boost to 1018.92 — his highest ever.  
+• Jill & Ishan beat Rhys & Aaron 7–5, giving Ishan a +19.17 doubles jump to 849.17, his personal best.  
+• Cooper’s doubles dropped -33.08 from 1180 to 1147.09 after two defeats.  
+• Rishaan & Ben had a tough match against Cadie & Cooper, losing 1–6 1–6 and dropping doubles Elo — Ben falls to 1324.05 (-15.17 from yesterday’s high).  
+• Liam’s doubles rating took the biggest hit (-62.59) after back-to-back losses.
+
+Notable Streaks & Records
+-------------------------
+• Cadie now holds the highest singles Elo in camp history (1570.43).  
+• Noah set a new personal best in doubles (1358.26) despite a singles drop.  
+• Shreya becomes the 22nd player in the database — starting with 900 in both formats.  
+• Spencer and Aaron both recorded career-best ratings in at least one format today.  
+• The singles-doubles performance gap for some players widened: e.g., Cadie (+53 over her doubles), Noah (+63 over singles), Liam (-82 from singles to doubles).
+
+
+Singles (descending Elo)
+	1.	Cadie — 1570.43
+	2.	Ben — 1336.88
+	3.	Adam — 1300.00
+	4.	Noah — 1294.89
+	5.	Jill — 1228.37
+	6.	Aaron — 1211.60
+	7.	Cooper — 1180.00
+	8.	Jack_L — 1171.66
+	9.	Liam — 1140.00
+	10.	Wes — 1130.00
+	11.	Mahika — 1080.00
+	12.	Harvey — 1036.13
+	13.	Spencer — 1016.42
+	14.	Jack_W — 992.12
+	15.	Emma — 991.37
+	16.	Rhys — 941.63
+	17.	Rishaan — 870.50
+	18.	Aliza — 844.01
+	19.	Ishan — 842.36
+	20.	Shreya — 832.00
+	21.	Anderson — 694.61
+
+Doubles (descending Elo)
+	1.	Cadie — 1517.09
+	2.	Noah — 1358.26
+	3.	Ben — 1324.05
+	4.	Adam — 1300.00
+	5.	Aaron — 1185.15
+	6.	Jill — 1180.77
+	7.	Jack_L — 1148.13
+	8.	Cooper — 1147.09
+	9.	Wes — 1130.00
+	10.	Mahika — 1080.00
+	11.	Harvey — 1079.82
+	12.	Liam — 1057.27
+	13.	Emma — 1030.90
+	14.	Rhys — 1029.50
+	15.	Spencer — 1018.92
+	16.	Jack_W — 920.79
+	17.	Rishaan — 914.05
+	18.	Shreya — 904.06
+	19.	Ishan — 849.17
+	20.	Aliza — 803.16
+	21.	Anderson — 726.84

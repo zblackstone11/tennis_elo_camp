@@ -128,9 +128,9 @@ def ensure_peak_fields(p):
 
 
 # --- Ratings sensitivity constants (per-set and match bonus)
-K_BASE = 80  # Elo K-factor for each set (applies to both singles and doubles)
-K_MATCH_SINGLES = 12  # Bonus Elo for winning a singles match (applied after sets)
-K_MATCH_DOUBLES = 8   # Bonus Elo for winning a doubles match (split per player)
+K_BASE = 100  # Elo K-factor for each set (applies to both singles and doubles)
+K_MATCH_SINGLES = 15  # Bonus Elo for winning a singles match (applied after sets)
+K_MATCH_DOUBLES = 15   # Bonus Elo for winning a doubles match (split per player)
 
 # Tiebreak scaling: treat 4 points as ~1 game so tiebreaks count less than a full set
 POINTS_PER_GAME_TIEBREAK = 4.0
