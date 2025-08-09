@@ -1,45 +1,6 @@
 """
 Tennis Elo Camp - Elo Rating Tracker for Tennis Matches
 -------------------------------------------------------
-This script tracks singles and doubles Elo ratings for a group of tennis players, using a custom Elo system
-that incorporates per-set results, tiebreaks, match bonuses, and margin-of-victory scaling.
-
-Data is stored in two JSON files:
-1. players.json: maps player names to their Elo ratings and match history.
-   Example:
-   {
-     "Alice": {
-       "singles_elo": 1045.2,
-       "doubles_elo": 1012.0,
-       "last_match_date": "2024-06-23",
-       "max_singles_elo": 1045.2,
-       "max_singles_date": "2024-06-23",
-       "max_doubles_elo": 1012.0,
-       "max_doubles_date": "2024-06-21"
-     },
-     ...
-   }
-
-2. matches.json: chronological list of match records with metadata.
-   Example:
-   [
-     {
-       "timestamp": "2024-06-23T18:34:12.12345",
-       "type": "singles_series",
-       "players": ["Alice", "Bob"],
-       "sets": [{"games": [6,3], "kind": "set"}, {"games": [7,6], "kind": "set"}],
-       "winner": "A"
-     },
-     {
-       "timestamp": "2024-06-22T12:15:09.00000",
-       "type": "doubles_series",
-       "teams": [["Alice", "Carol"], ["Bob", "Dave"]],
-       "sets": [{"games": [6,4], "kind": "set"}],
-       "winner": "B"
-     }
-   ]
-
-Each match record includes set-by-set results and the winner (or None for ties).
 """
 import json
 from datetime import date
@@ -102,6 +63,7 @@ def add_player(players, name, singles_elo=1000, doubles_elo=1000):
         "max_doubles_elo": doubles_elo,
         "max_doubles_date": str(date.today())
     }
+    ensure_counters_fields(players[name])
     return players[name]
 
 def ensure_player(players, name):
@@ -115,6 +77,7 @@ def ensure_player(players, name):
             "last_match_date": str(date.today())
         }
     ensure_peak_fields(players[name])
+    ensure_counters_fields(players[name])
     return players[name]
 
 def ensure_peak_fields(p):
@@ -127,6 +90,131 @@ def ensure_peak_fields(p):
         p["max_doubles_date"] = p.get("last_match_date", str(date.today()))
 
 
+# --- Counters and helpers for per-mode stats and streaks
+def ensure_counters_fields(p):
+    """Ensure a player's per-mode counters/streak fields exist."""
+    if "counters" not in p:
+        p["counters"] = {}
+    for mode in ("singles", "doubles"):
+        if mode not in p["counters"]:
+            p["counters"][mode] = {
+                "matches_played": 0,
+                "matches_won": 0,
+                "sets_played": 0,
+                "sets_won": 0,
+                "tiebreaks_played": 0,
+                "tiebreaks_won": 0,
+                "bagels_given": 0,
+                "bagels_taken": 0,
+                "current_win_streak": 0,
+                "best_win_streak": 0,
+            }
+
+def is_bagel(kind, a, b):
+    """Return True if this set is a bagel (winner >=6 games, loser == 0)."""
+    if kind != "set":
+        return False
+    winner = a if a > b else b
+    loser = b if a > b else a
+    return loser == 0 and winner >= 6
+
+def first_set_winner(sets_logged):
+    """Return 'A' if A won the first set, 'B' if B won, else None."""
+    if not sets_logged:
+        return None
+    a, b = sets_logged[0]["games"]
+    if a > b:
+        return "A"
+    if b > a:
+        return "B"
+    return None
+
+
+# --- Helper functions for stats and leaderboard ---
+def parse_date_yyyy_mm_dd(s):
+    """Parse 'YYYY-MM-DD' into a date; return None if invalid."""
+    try:
+        y, m, d = map(int, s.split("-"))
+        return date(y, m, d)
+    except Exception:
+        return None
+
+def entry_mode_matches(entry, mode):
+    """Return True if a history entry corresponds to the given mode ('singles' or 'doubles')."""
+    t = entry.get("type")
+    if mode == "singles":
+        return t == "singles_series"
+    if mode == "doubles":
+        return t == "doubles_series"
+    return False
+
+def player_in_entry(entry, player):
+    """Check if player is present in a history entry (singles or doubles)."""
+    if entry.get("type") == "singles_series":
+        a, b = entry.get("players", [None, None])
+        return player == a or player == b
+    elif entry.get("type") == "doubles_series":
+        teams = entry.get("teams", [[], []])
+        return any(player in team for team in teams)
+    return False
+
+def opponent_label(entry, player):
+    """Return a short opponent label for printing (handles singles and doubles)."""
+    if entry.get("type") == "singles_series":
+        a, b = entry.get("players", [None, None])
+        return b if player == a else a
+    elif entry.get("type") == "doubles_series":
+        teams = entry.get("teams", [[], []])
+        if any(player in teams[0] for _ in [0]) and player in teams[0]:
+            return " & ".join(teams[1])
+        if any(player in teams[1] for _ in [0]) and player in teams[1]:
+            return " & ".join(teams[0])
+        # Fallback
+        return " / ".join(sum(teams, []))
+    return "Unknown"
+
+def player_result_in_entry(entry, player):
+    """Return 'W', 'L', or 'T' for the player in this history entry."""
+    w = entry.get("winner")
+    if w is None:
+        return "T"
+    if entry.get("type") == "singles_series":
+        a, b = entry.get("players", [None, None])
+        if player == a:
+            return "W" if w == "A" else "L"
+        elif player == b:
+            return "W" if w == "B" else "L"
+    elif entry.get("type") == "doubles_series":
+        teams = entry.get("teams", [[], []])
+        if player in teams[0]:
+            return "W" if w == "A" else "L"
+        if player in teams[1]:
+            return "W" if w == "B" else "L"
+    return "T"
+
+def player_elo_change_in_entry(entry, player, mode):
+    """Return the Elo change for player in this entry for the given mode, if present; else 0."""
+    change = entry.get("elo_change", {})
+    if entry.get("type") == "singles_series" and mode == "singles":
+        return float(change.get(player, 0.0))
+    if entry.get("type") == "doubles_series" and mode == "doubles":
+        return float(change.get(player, 0.0))
+    return 0.0
+
+def sets_string(entry):
+    """Compact string like '6-3, 7-6[tiebreak]' from entry['sets'].""" 
+    toks = []
+    for s in entry.get("sets", []):
+        a, b = s.get("games", [None, None])
+        kind = s.get("kind", "set")
+        if kind == "tiebreak":
+            toks.append(f"{a}-{b}[tiebreak]")
+        else:
+            toks.append(f"{a}-{b}")
+    return ", ".join(toks)
+
+
+#
 # --- Ratings sensitivity constants (per-set and match bonus)
 K_BASE = 100  # Elo K-factor for each set (applies to both singles and doubles)
 K_MATCH_SINGLES = 15  # Bonus Elo for winning a singles match (applied after sets)
@@ -224,6 +312,41 @@ def record_singles(players, name_a, name_b, games_a, games_b, kind="set"):
     total = A_eq + B_eq
     act_a = A_eq / total if total else 0.5
     act_b = 1 - act_a
+    # Per-set counters for singles
+    cs_a = p_a.setdefault("counters", {}).setdefault("singles", {})
+    cs_b = p_b.setdefault("counters", {}).setdefault("singles", {})
+    # Ensure default keys exist if older records
+    for cs in (cs_a, cs_b):
+        cs.setdefault("matches_played", 0)
+        cs.setdefault("matches_won", 0)
+        cs.setdefault("sets_played", 0)
+        cs.setdefault("sets_won", 0)
+        cs.setdefault("tiebreaks_played", 0)
+        cs.setdefault("tiebreaks_won", 0)
+        cs.setdefault("bagels_given", 0)
+        cs.setdefault("bagels_taken", 0)
+        cs.setdefault("current_win_streak", 0)
+        cs.setdefault("best_win_streak", 0)
+    cs_a["sets_played"] += 1
+    cs_b["sets_played"] += 1
+    if games_a > games_b:
+        cs_a["sets_won"] += 1
+    elif games_b > games_a:
+        cs_b["sets_won"] += 1
+    if kind == "tiebreak":
+        cs_a["tiebreaks_played"] += 1
+        cs_b["tiebreaks_played"] += 1
+        if games_a > games_b:
+            cs_a["tiebreaks_won"] += 1
+        elif games_b > games_a:
+            cs_b["tiebreaks_won"] += 1
+    if is_bagel(kind, games_a, games_b):
+        if games_a > games_b:
+            cs_a["bagels_given"] += 1
+            cs_b["bagels_taken"] += 1
+        elif games_b > games_a:
+            cs_b["bagels_given"] += 1
+            cs_a["bagels_taken"] += 1
     # Margin-of-victory multiplier (same for both sides to keep zero-sum)
     k_eff = K_BASE * mov_multiplier(act_a)
     # If this set is a standalone tiebreak, scale K by TB length vs a full set
@@ -262,6 +385,47 @@ def record_doubles(players, team_a, team_b, games_a, games_b, kind="set"):
     total = A_eq + B_eq
     act_a = A_eq / total if total else 0.5
     act_b = 1 - act_a
+    # Per-set counters for doubles (apply to all four players)
+    for name in team_a + team_b:
+        p = players[name]
+        cd = p.setdefault("counters", {}).setdefault("doubles", {})
+        cd.setdefault("matches_played", 0)
+        cd.setdefault("matches_won", 0)
+        cd.setdefault("sets_played", 0)
+        cd.setdefault("sets_won", 0)
+        cd.setdefault("tiebreaks_played", 0)
+        cd.setdefault("tiebreaks_won", 0)
+        cd.setdefault("bagels_given", 0)
+        cd.setdefault("bagels_taken", 0)
+        cd.setdefault("current_win_streak", 0)
+        cd.setdefault("best_win_streak", 0)
+        cd["sets_played"] += 1
+    if games_a > games_b:
+        for name in team_a:
+            players[name]["counters"]["doubles"]["sets_won"] += 1
+    elif games_b > games_a:
+        for name in team_b:
+            players[name]["counters"]["doubles"]["sets_won"] += 1
+    if kind == "tiebreak":
+        for name in team_a + team_b:
+            players[name]["counters"]["doubles"]["tiebreaks_played"] += 1
+        if games_a > games_b:
+            for name in team_a:
+                players[name]["counters"]["doubles"]["tiebreaks_won"] += 1
+        elif games_b > games_a:
+            for name in team_b:
+                players[name]["counters"]["doubles"]["tiebreaks_won"] += 1
+    if is_bagel(kind, games_a, games_b):
+        if games_a > games_b:
+            for name in team_a:
+                players[name]["counters"]["doubles"]["bagels_given"] += 1
+            for name in team_b:
+                players[name]["counters"]["doubles"]["bagels_taken"] += 1
+        elif games_b > games_a:
+            for name in team_b:
+                players[name]["counters"]["doubles"]["bagels_given"] += 1
+            for name in team_a:
+                players[name]["counters"]["doubles"]["bagels_taken"] += 1
     today = str(date.today())
     # Margin-of-victory multiplier for doubles set
     k_eff = K_BASE * mov_multiplier(act_a)
@@ -419,6 +583,142 @@ def record_series_doubles(players, team_a, team_b, set_tokens):
     return sets_logged, winner
 
 
+# --- Insights report generation ---
+def generate_insights(players, date_str, outfile=None):
+    """Create a daily insights text file summarizing leaderboards, movers, streaks, and highlights.
+    Args:
+        players: dict loaded from players.json
+        date_str: 'YYYY-MM-DD' (filters matches by this date)
+        outfile: optional path; defaults to insights_<date_str>.txt
+    """
+    history = load_history()
+    day_entries = [e for e in history if e.get("date") == date_str]
+    if not outfile:
+        outfile = f"insights_{date_str}.txt"
+
+    # Helper: movers on this date by mode
+    def movers_for_mode(mode):
+        deltas = {}
+        for e in day_entries:
+            if entry_mode_matches(e, mode):
+                for name, d in e.get("elo_change", {}).items():
+                    deltas[name] = deltas.get(name, 0.0) + float(d)
+        # Sort by delta desc
+        return sorted(deltas.items(), key=lambda kv: kv[1], reverse=True)
+
+    # Helper: active streaks snapshot (current, not just for the day)
+    def active_streaks(mode):
+        rows = []
+        for name, pdata in players.items():
+            ensure_counters_fields(pdata)
+            c = pdata["counters"][mode]
+            rows.append((c.get("current_win_streak", 0), name))
+        rows.sort(reverse=True)
+        return rows
+
+    # Helper: highlights (simple upset detection)
+    def highlights():
+        lines = []
+        for e in day_entries:
+            if e.get("type") == "singles_series":
+                a, b = e.get("players", [None, None])
+                winner = e.get("winner")
+                # Starting Elos
+                Ra0 = e.get("elos_before", {}).get(a, None)
+                Rb0 = e.get("elos_before", {}).get(b, None)
+                if Ra0 is None or Rb0 is None:
+                    continue
+                E_A = expected_score(Ra0, Rb0)
+                if winner == "A":
+                    delta = float(e.get("elo_change", {}).get(a, 0.0))
+                    # Upset if A started >=100 lower or E_A <= 0.35
+                    if (Ra0 + 100 <= Rb0) or (E_A <= 0.35):
+                        lines.append(f"Singles upset: {a} def. {b} {sets_string(e)} (pre-match E_A={E_A:.2f}, Δ {delta:+.1f})")
+                elif winner == "B":
+                    delta = float(e.get("elo_change", {}).get(b, 0.0))
+                    if (Rb0 + 100 <= Ra0) or ((1 - E_A) <= 0.35):
+                        lines.append(f"Singles upset: {b} def. {a} {sets_string(e)} (pre-match E_B={1-E_A:.2f}, Δ {delta:+.1f})")
+            elif e.get("type") == "doubles_series":
+                (tA, tB) = e.get("teams", [[], []])
+                winner = e.get("winner")
+                before = e.get("elos_before", {})
+                if not before or not tA or not tB:
+                    continue
+                Ra0 = sum(before.get(n, players.get(n, {}).get("doubles_elo", 1000)) for n in tA) / 2.0
+                Rb0 = sum(before.get(n, players.get(n, {}).get("doubles_elo", 1000)) for n in tB) / 2.0
+                E_A = expected_score(Ra0, Rb0)
+                teamA = " & ".join(tA); teamB = " & ".join(tB)
+                if winner == "A":
+                    # sum winner's delta (both players)
+                    delta = sum(float(e.get("elo_change", {}).get(n, 0.0)) for n in tA)
+                    if (Ra0 + 100 <= Rb0) or (E_A <= 0.35):
+                        lines.append(f"Doubles upset: {teamA} def. {teamB} {sets_string(e)} (pre E_A={E_A:.2f}, team Δ {delta:+.1f})")
+                elif winner == "B":
+                    delta = sum(float(e.get("elo_change", {}).get(n, 0.0)) for n in tB)
+                    if (Rb0 + 100 <= Ra0) or ((1 - E_A) <= 0.35):
+                        lines.append(f"Doubles upset: {teamB} def. {teamA} {sets_string(e)} (pre E_B={1-E_A:.2f}, team Δ {delta:+.1f})")
+        return lines
+
+    # Build report
+    key_s = "singles_elo"; key_d = "doubles_elo"
+    singles_lb = sorted(players.items(), key=lambda kv: kv[1][key_s], reverse=True)
+    doubles_lb = sorted(players.items(), key=lambda kv: kv[1][key_d], reverse=True)
+    mov_s = movers_for_mode("singles")
+    mov_d = movers_for_mode("doubles")
+    st_s = active_streaks("singles")
+    st_d = active_streaks("doubles")
+    hi = highlights()
+
+    with open(outfile, "w") as f:
+        f.write(f"Insights — {date_str}\n")
+        f.write("=" * (11 + len(date_str)) + "\n\n")
+
+        f.write("Singles Leaderboard:\n")
+        for i, (name, data) in enumerate(singles_lb, 1):
+            f.write(f"{i:>2}. {name:<12} {data[key_s]:.1f}\n")
+        f.write("\n")
+
+        f.write("Doubles Leaderboard:\n")
+        for i, (name, data) in enumerate(doubles_lb, 1):
+            f.write(f"{i:>2}. {name:<12} {data[key_d]:.1f}\n")
+        f.write("\n")
+
+        f.write("Biggest Movers (Singles, today):\n")
+        if mov_s:
+            for rank, (name, dlt) in enumerate(mov_s[:10], 1):
+                f.write(f" +{rank}) {name:<12} {dlt:+.1f}\n")
+        else:
+            f.write(" (no singles matches recorded for this date)\n")
+        f.write("\n")
+
+        f.write("Biggest Movers (Doubles, today):\n")
+        if mov_d:
+            for rank, (name, dlt) in enumerate(mov_d[:10], 1):
+                f.write(f" +{rank}) {name:<12} {dlt:+.1f}\n")
+        else:
+            f.write(" (no doubles matches recorded for this date)\n")
+        f.write("\n")
+
+        f.write("Active Win Streaks — Singles:\n")
+        for i, (st, name) in enumerate(st_s[:10], 1):
+            f.write(f" {i:>2}. {name:<12} {st}\n")
+        f.write("\n")
+
+        f.write("Active Win Streaks — Doubles:\n")
+        for i, (st, name) in enumerate(st_d[:10], 1):
+            f.write(f" {i:>2}. {name:<12} {st}\n")
+        f.write("\n")
+
+        f.write("Highlights:\n")
+        if hi:
+            for line in hi:
+                f.write(f" - {line}\n")
+        else:
+            f.write(" (no notable upsets flagged today)\n")
+
+    return outfile
+
+
 if __name__ == "__main__":
     import argparse
 
@@ -460,19 +760,82 @@ if __name__ == "__main__":
     pshow = sub.add_parser("show_player", help="Show a player's current and peak Elo")
     pshow.add_argument("name", help="Player name")
 
+    # Subparser: stats (per-player card)
+    pst = sub.add_parser("stats", help="Show a player's stats card")
+    pst.add_argument("name", help="Player name")
+    pst.add_argument("--mode", choices=["singles", "doubles"], default="singles", help="Mode (default: singles)")
+    group = pst.add_mutually_exclusive_group()
+    group.add_argument("--since", type=str, help="Only consider matches on/after this date (YYYY-MM-DD) for momentum & recent list")
+    group.add_argument("--last", type=int, help="Only consider the last N matches for momentum & recent list (default 5 if neither specified)")
+    pst.add_argument("--h2h", type=str, help="Optional head-to-head opponent")
+
+    # Subparser: stats-leaderboard (group summaries)
+    psl = sub.add_parser("stats-leaderboard", help="Show extended leaderboard and summaries")
+    psl.add_argument("--mode", choices=["singles", "doubles"], default="singles", help="Mode (default: singles)")
+    psl.add_argument("--top", type=int, default=10, help="Top N by rating (default: 10)")
+    psl.add_argument("--momentum", action="store_true", help="Show biggest movers (sum of Elo deltas)")
+    psl.add_argument("--streaks", action="store_true", help="Show longest active win streaks")
+    psl.add_argument("--since", type=str, help="For momentum: on/after YYYY-MM-DD")
+    psl.add_argument("--last", type=int, help="For momentum: last N matches per player")
+
+    # Subparser: insights (daily report file)
+    pins = sub.add_parser("insights", help="Write a daily insights report to a text file")
+    pins.add_argument("--date", type=str, default=str(date.today()), help="Date to summarize (YYYY-MM-DD). Default: today")
+    pins.add_argument("--outfile", type=str, help="Optional output path (defaults to insights_<date>.txt)")
+
     args = parser.parse_args()
     players = load_players()
 
     if args.command == "record_series_singles":
-        # Record a singles match series and update ratings/history.
+        # Snapshot pre-match Elo
+        Ra_before = players.get(args.player_a, {}).get("singles_elo", 1000)
+        Rb_before = players.get(args.player_b, {}).get("singles_elo", 1000)
+
         sets_logged, winner = record_series_singles(players, args.player_a, args.player_b, args.sets)
+
+        # Update match counters & streaks
+        pa = players[args.player_a]
+        pb = players[args.player_b]
+        for p in (pa, pb):
+            ensure_counters_fields(p)
+        csa = pa["counters"]["singles"]
+        csb = pb["counters"]["singles"]
+        csa["matches_played"] += 1
+        csb["matches_played"] += 1
+        if winner == "A":
+            csa["matches_won"] += 1
+            csa["current_win_streak"] += 1
+            csa["best_win_streak"] = max(csa["best_win_streak"], csa["current_win_streak"])
+            csb["current_win_streak"] = 0
+        elif winner == "B":
+            csb["matches_won"] += 1
+            csb["current_win_streak"] += 1
+            csb["best_win_streak"] = max(csb["best_win_streak"], csb["current_win_streak"])
+            csa["current_win_streak"] = 0
+        # If tie: no change to streaks
+
+        # Flags
+        decided_by_tb = bool(sets_logged and sets_logged[-1]["kind"] == "tiebreak")
+        fs_winner = first_set_winner(sets_logged)
+        comeback_win = (winner is not None and fs_winner is not None and winner != fs_winner)
+
+        # Snapshot post-match Elo
+        Ra_after = players[args.player_a]["singles_elo"]
+        Rb_after = players[args.player_b]["singles_elo"]
+
         history = load_history()
         history.append({
             "timestamp": datetime.now().isoformat(),
+            "date": str(date.today()),
             "type": "singles_series",
             "players": [args.player_a, args.player_b],
             "sets": sets_logged,
-            "winner": winner
+            "winner": winner,
+            "decided_by_tiebreak": decided_by_tb,
+            "comeback_win": comeback_win,
+            "elos_before": {args.player_a: Ra_before, args.player_b: Rb_before},
+            "elos_after": {args.player_a: Ra_after, args.player_b: Rb_after},
+            "elo_change": {args.player_a: Ra_after - Ra_before, args.player_b: Rb_after - Rb_before}
         })
         save_history(history)
         save_players(players)
@@ -482,17 +845,56 @@ if __name__ == "__main__":
             print(f"Recorded singles series for {args.player_a} vs {args.player_b} ({len(sets_logged)} sets), winner {winner}.")
 
     elif args.command == "record_series_doubles":
-        # Record a doubles match series and update ratings/history.
         ta = tuple(args.team_a)
         tb = tuple(args.team_b)
+        # Snapshot pre-match Elo for all four players
+        Ra_before = sum(players.get(n, {}).get("doubles_elo", 1000) for n in ta) / 2.0
+        Rb_before = sum(players.get(n, {}).get("doubles_elo", 1000) for n in tb) / 2.0
+        indiv_before = {n: players.get(n, {}).get("doubles_elo", 1000) for n in ta + tb}
+
         sets_logged, winner = record_series_doubles(players, ta, tb, args.sets)
+
+        # Update match counters & streaks for all four
+        for n in ta + tb:
+            ensure_counters_fields(players[n])
+            players[n]["counters"]["doubles"]["matches_played"] += 1
+        if winner == "A":
+            for n in ta:
+                cd = players[n]["counters"]["doubles"]
+                cd["matches_won"] += 1
+                cd["current_win_streak"] += 1
+                cd["best_win_streak"] = max(cd["best_win_streak"], cd["current_win_streak"])
+            for n in tb:
+                players[n]["counters"]["doubles"]["current_win_streak"] = 0
+        elif winner == "B":
+            for n in tb:
+                cd = players[n]["counters"]["doubles"]
+                cd["matches_won"] += 1
+                cd["current_win_streak"] += 1
+                cd["best_win_streak"] = max(cd["best_win_streak"], cd["current_win_streak"])
+            for n in ta:
+                players[n]["counters"]["doubles"]["current_win_streak"] = 0
+        # If tie: no change to streaks
+
+        decided_by_tb = bool(sets_logged and sets_logged[-1]["kind"] == "tiebreak")
+        fs_winner = first_set_winner(sets_logged)
+        comeback_win = (winner is not None and fs_winner is not None and winner != fs_winner)
+
+        indiv_after = {n: players[n]["doubles_elo"] for n in ta + tb}
+
         history = load_history()
         history.append({
             "timestamp": datetime.now().isoformat(),
+            "date": str(date.today()),
             "type": "doubles_series",
             "teams": [list(ta), list(tb)],
             "sets": sets_logged,
-            "winner": winner
+            "winner": winner,
+            "decided_by_tiebreak": decided_by_tb,
+            "comeback_win": comeback_win,
+            "elos_before": indiv_before,
+            "elos_after": indiv_after,
+            "elo_change": {n: indiv_after[n] - indiv_before[n] for n in indiv_after}
         })
         save_history(history)
         save_players(players)
@@ -527,3 +929,180 @@ if __name__ == "__main__":
             print(f"  Doubles Elo: {p['doubles_elo']:.1f} (peak {p.get('max_doubles_elo', p['doubles_elo']):.1f} on {p.get('max_doubles_date', '-')})")
         else:
             print(f"Player '{args.name}' not found.")
+
+    elif args.command == "stats":
+        name = args.name
+        mode = args.mode
+        if name not in players:
+            print(f"Player '{name}' not found.")
+            exit(1)
+        p = players[name]
+        # Pull counters
+        ensure_counters_fields(p)
+        c = p["counters"][mode]
+        # Momentum window
+        history = load_history()
+        # Filter entries by player & mode
+        entries = [e for e in history if entry_mode_matches(e, mode) and player_in_entry(e, name)]
+        # Order by timestamp if present, else by date string
+        def sort_key(e):
+            return e.get("timestamp") or (e.get("date") or "") 
+        entries.sort(key=sort_key, reverse=True)
+        # Apply --since or --last
+        recent = entries
+        if args.since:
+            d0 = parse_date_yyyy_mm_dd(args.since)
+            if d0:
+                recent = [e for e in entries if parse_date_yyyy_mm_dd(e.get("date","")) and parse_date_yyyy_mm_dd(e.get("date","")) >= d0]
+        elif args.last:
+            recent = entries[: args.last]
+        else:
+            recent = entries[:5]  # default window
+
+        # Compute momentum (sum of Elo changes over the window)
+        momentum = sum(player_elo_change_in_entry(e, name, mode) for e in recent)
+
+        # Header with rating + peak
+        peak_val = p.get("max_singles_elo" if mode=="singles" else "max_doubles_elo", p[f"{mode}_elo"])
+        peak_date = p.get("max_singles_date" if mode=="singles" else "max_doubles_date", "-")
+        print(f"{name} — {mode.title()}")
+        print(f"Rating {p[f'{mode}_elo']:.2f} | Peak {peak_val:.2f} ({peak_date})")
+        # Record
+        mp = c.get("matches_played", 0)
+        mw = c.get("matches_won", 0)
+        sp = c.get("sets_played", 0)
+        sw = c.get("sets_won", 0)
+        print(f"Matches {mw}–{mp-mw} | Sets {sw}–{sp-sw}")
+        # Streaks
+        print(f"Streak {c.get('current_win_streak',0)} (Best {c.get('best_win_streak',0)})")
+        # TB and bagels
+        tbp = c.get("tiebreaks_played", 0)
+        tbw = c.get("tiebreaks_won", 0)
+        tb_pct = (100.0 * tbw / tbp) if tbp else 0.0
+        print(f"Tiebreaks {tbw}–{tbp - tbw} ({tb_pct:.0f}%)")
+        print(f"Bagels {c.get('bagels_given',0)} given / {c.get('bagels_taken',0)} taken")
+        # Momentum
+        if args.since:
+            print(f"Momentum since {args.since}: {momentum:+.1f}")
+        elif args.last:
+            print(f"Momentum (last {args.last}): {momentum:+.1f}")
+        else:
+            print(f"Momentum (last 5): {momentum:+.1f}")
+        # Recent results list
+        print("Recent:")
+        for e in recent:
+            res = player_result_in_entry(e, name)
+            # Build opponent label according to mode and entry
+            opponent_names = []
+            if e.get("type") == "singles_series":
+                a, b = e.get("players", [None, None])
+                opponent_names = [b if name == a else a]
+            elif e.get("type") == "doubles_series":
+                teams = e.get("teams", [[], []])
+                # Flatten all names except the player's team
+                if name in teams[0]:
+                    opponent_names = teams[1] + teams[0]
+                elif name in teams[1]:
+                    opponent_names = teams[0] + teams[1]
+                else:
+                    opponent_names = sum(teams, [])
+            # Clean opponent label logic
+            if mode == "doubles":
+                opponent_label = f"{' & '.join(opponent_names[:2])} vs {' & '.join(opponent_names[2:])}"
+            else:
+                opponent_label = opponent_names[0]
+            delta = player_elo_change_in_entry(e, name, mode)
+            print(f"  {res} vs {opponent_label:<18} {sets_string(e):<24} (Δ {delta:+.1f})")
+
+        # Head-to-head if requested
+        if args.h2h:
+            opp = args.h2h
+            if opp not in players:
+                print(f"\n(H2H) Opponent '{opp}' not found.")
+            else:
+                # Filter entries where both are present in this mode
+                h2h_entries = [e for e in entries if player_in_entry(e, opp)]
+                h2h_matches = len(h2h_entries)
+                h2h_w = sum(1 for e in h2h_entries if player_result_in_entry(e, name) == "W")
+                # Compute sets W-L in head-to-head
+                sets_w = 0; sets_l = 0
+                for e in h2h_entries:
+                    for s in e.get("sets", []):
+                        a, b = s.get("games", [0,0])
+                        # Determine side of 'name' in this entry
+                        if e.get("type") == "singles_series":
+                            a_name, b_name = e.get("players", [None, None])
+                            if name == a_name:
+                                if a > b: sets_w += 1
+                                elif b > a: sets_l += 1
+                            elif name == b_name:
+                                if b > a: sets_w += 1
+                                elif a > b: sets_l += 1
+                        else:  # doubles
+                            tA, tB = e.get("teams", [[], []])
+                            if name in tA:
+                                if a > b: sets_w += 1
+                                elif b > a: sets_l += 1
+                            elif name in tB:
+                                if b > a: sets_w += 1
+                                elif a > b: sets_l += 1
+                print(f"\nHead-to-head vs {opp}:")
+                print(f"  Matches {h2h_w}–{h2h_matches - h2h_w} | Sets {sets_w}–{sets_l}")
+                if h2h_entries:
+                    le = h2h_entries[0]
+                    print(f"  Last: {player_result_in_entry(le, name)} {sets_string(le)} (Δ {player_elo_change_in_entry(le, name, mode):+.1f})")
+
+    elif args.command == "stats-leaderboard":
+        mode = args.mode
+        key = "singles_elo" if mode == "singles" else "doubles_elo"
+        # Sorted leaderboard
+        sorted_players = sorted(players.items(), key=lambda kv: kv[1][key], reverse=True)[: args.top]
+        print(f"{mode.title()} Leaderboard (Top {args.top}):")
+        for i, (name, data) in enumerate(sorted_players, 1):
+            print(f"{i:>2}. {name:<12} {data[key]:.2f}")
+
+        history = load_history()
+        if args.momentum:
+            # Compute momentum since date or last N per player
+            d0 = parse_date_yyyy_mm_dd(args.since) if args.since else None
+            last_n = args.last
+            movers = []
+            for name in players.keys():
+                # All entries for this player & mode
+                entries = [e for e in history if entry_mode_matches(e, mode) and player_in_entry(e, name)]
+                # Sort newest first
+                entries.sort(key=lambda e: e.get("timestamp") or (e.get("date") or ""), reverse=True)
+                if d0:
+                    entries = [e for e in entries if parse_date_yyyy_mm_dd(e.get("date","")) and parse_date_yyyy_mm_dd(e.get("date","")) >= d0]
+                elif last_n:
+                    entries = entries[: last_n]
+                else:
+                    entries = entries[:5]
+                delta = sum(player_elo_change_in_entry(e, name, mode) for e in entries)
+                if entries:
+                    movers.append((delta, name))
+            movers.sort(reverse=True)  # biggest gainers first
+            print("\nBiggest Movers:")
+            for rank, (delta, name) in enumerate(movers[:10], 1):
+                print(f" +{rank}) {name:<12} {delta:+.1f}")
+            movers.sort()  # biggest droppers first
+            print("\nBiggest Droppers:")
+            for rank, (delta, name) in enumerate(movers[:10], 1):
+                print(f" -{rank}) {name:<12} {delta:+.1f}")
+
+        if args.streaks:
+            # Longest active win streaks (need counters)
+            streaks = []
+            for name, data in players.items():
+                ensure_counters_fields(data)
+                c = data["counters"][mode]
+                streaks.append((c.get("current_win_streak", 0), name))
+            streaks.sort(reverse=True)
+            print("\nActive Win Streaks:")
+            for i, (st, name) in enumerate(streaks[:10], 1):
+                print(f" {i:>2}. {name:<12} {st}")
+
+    elif args.command == "insights":
+        day = args.date
+        out = generate_insights(players, day, outfile=args.outfile)
+        print(f"Wrote insights to {out}")

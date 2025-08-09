@@ -1,0 +1,101 @@
+Insights — 2025-08-09
+=====================
+
+Singles Leaderboard:
+ 1. Cadie        1587.8
+ 2. Ben          1360.1
+ 3. Noah         1302.4
+ 4. Adam         1300.0
+ 5. Jill         1252.9
+ 6. Aaron        1248.7
+ 7. Jack_L       1183.3
+ 8. Cooper       1180.0
+ 9. Liam         1140.0
+10. Wes          1130.0
+11. Mahika       1080.0
+12. Harvey       1038.5
+13. Jack_W       1025.3
+14. Spencer      1022.7
+15. Emma         992.4
+16. Rhys         945.1
+17. Rishaan      881.8
+18. Ishan        870.0
+19. Aliza        857.4
+20. Shreya       839.5
+21. Anderson     705.2
+
+Doubles Leaderboard:
+ 1. Cadie        1534.4
+ 2. Noah         1366.5
+ 3. Ben          1345.2
+ 4. Adam         1300.0
+ 5. Jill         1215.7
+ 6. Aaron        1200.1
+ 7. Jack_L       1183.9
+ 8. Cooper       1164.4
+ 9. Wes          1130.0
+10. Harvey       1118.8
+11. Liam         1088.6
+12. Rhys         1081.5
+13. Mahika       1080.0
+14. Emma         1068.4
+15. Spencer      1041.4
+16. Rishaan      935.2
+17. Jack_W       927.1
+18. Shreya       908.4
+19. Ishan        869.5
+20. Aliza        821.9
+21. Anderson     760.1
+
+Biggest Movers (Singles, today):
+ +1) Aaron        +36.7
+ +2) Jack_W       +33.3
+ +3) Jill         +24.9
+ +4) Ben          +23.1
+ +5) Cadie        +17.8
+ +6) Aliza        +13.4
+ +7) Jack_L       +8.3
+ +8) Spencer      +6.7
+ +9) Ishan        +2.0
+ +10) Harvey       -1.5
+
+Biggest Movers (Doubles, today):
+ +1) Rhys         +52.5
+ +2) Harvey       +38.8
+ +3) Spencer      +22.4
+ +4) Ishan        +20.5
+ +5) Emma         +16.4
+ +6) Aaron        +15.1
+ +7) Noah         +8.5
+ +8) Shreya       +8.4
+ +9) Anderson     +8.1
+ +10) Rishaan      +6.2
+
+Active Win Streaks — Singles:
+  1. Cadie        2
+  2. Aaron        2
+  3. Spencer      1
+  4. Rishaan      1
+  5. Jill         1
+  6. Jack_W       1
+  7. Emma         1
+  8. Ben          1
+  9. Aliza        1
+ 10. Wes          0
+
+Active Win Streaks — Doubles:
+  1. Anderson     2
+  2. Spencer      1
+  3. Rhys         1
+  4. Noah         1
+  5. Jack_L       1
+  6. Ishan        1
+  7. Harvey       1
+  8. Emma         1
+  9. Aaron        1
+ 10. Wes          0
+
+Highlights:
+ - Doubles upset: Harvey & Spencer def. Noah & Jack_L 7-6 (pre E_A=0.21, team Δ +77.6)
+ - Doubles upset: Noah & Jack_L def. Cadie & Cooper 4-2 (pre E_A=0.27, team Δ +94.5)
+ - Doubles upset: Rhys & Aaron def. Liam & Jill 1-4 (pre E_B=0.32, team Δ +116.9)
