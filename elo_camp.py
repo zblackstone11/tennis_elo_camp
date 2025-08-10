@@ -228,8 +228,16 @@ ALPHA_MOV = 0.20  # max +20% boost on a shutout set; ~+8% on a 6-4
 
 # Tiebreak weight vs. a full set (proportional to TB length, clamped)
 AVG_GAMES_PER_SET = 10.0   # typical games in a set
+
 TB_MIN_FRACTION = 0.30     # shortest TB still counts ~30% of a set
 TB_MAX_FRACTION = 0.70     # marathon TB capped at ~70% of a set
+
+# --- Highlights tuning -------------------------------------------------------
+# Relaxed thresholds so we almost always surface a few interesting matches.
+HIGHLIGHT_PROB_THRESHOLD = 0.50  # winner's pre-match win prob must be <= this
+HIGHLIGHT_ELO_GAP = 50            # or winner started at least this many Elo lower
+HIGHLIGHT_UPSETS_MAX = 5          # cap for upsets printed per day
+HIGHLIGHT_COMEBACKS_MAX = 5       # cap for comebacks printed per day
 
 def mov_multiplier(actual_score):
     """Return a per-set multiplier based on decisiveness.
@@ -616,20 +624,34 @@ def generate_insights(players, date_str, outfile=None):
         return risers, sliders
 
     def active_streaks(mode):
-        """Snapshot of current win streaks for the mode, sorted desc."""
+        """Snapshot of current win streaks for the mode, sorted desc.
+        Only include players with a current_win_streak >= 1.
+        """
         rows = []
         for name, pdata in players.items():
             ensure_counters_fields(pdata)
             c = pdata["counters"][mode]
-            rows.append((c.get("current_win_streak", 0), name))
+            st = c.get("current_win_streak", 0)
+            if st >= 1:
+                rows.append((st, name))
         rows.sort(reverse=True)
         return rows
 
     def highlights():
-        """Upsets based on pre-match expectation, pulled from history day entries."""
-        lines = []
+        """Build two highlight buckets for the day: upsets and comebacks.
+        Upsets are defined by either:
+          - winner's pre-match expected prob <= HIGHLIGHT_PROB_THRESHOLD, or
+          - winner started at least HIGHLIGHT_ELO_GAP Elo lower than opponent/team.
+        We sort upsets by "surprise" (lower winner probability first) and
+        cap both lists to their respective *_MAX constants.
+        """
+        upsets_scored = []  # list of (surprise_score, line)
+        comebacks_scored = []  # list of (magnitude, line)
+
         for e in day_entries:
-            if e.get("type") == "singles_series":
+            t = e.get("type")
+            # Singles
+            if t == "singles_series":
                 a, b = e.get("players", [None, None])
                 winner = e.get("winner")
                 Ra0 = e.get("elos_before", {}).get(a)
@@ -638,32 +660,77 @@ def generate_insights(players, date_str, outfile=None):
                     continue
                 E_A = expected_score(Ra0, Rb0)
                 if winner == "A":
+                    win_prob = E_A
+                    elo_gap = Rb0 - Ra0
                     delta = float(e.get("elo_change", {}).get(a, 0.0))
-                    if (Ra0 + 100 <= Rb0) or (E_A <= 0.35):
-                        lines.append(f"Singles upset: {a} def. {b} {sets_string(e)} (pre-match E_A={E_A:.2f}, Δ {delta:+.1f})")
+                    if (win_prob <= HIGHLIGHT_PROB_THRESHOLD) or (elo_gap >= HIGHLIGHT_ELO_GAP):
+                        line = f"Singles upset: {a} def. {b} {sets_string(e)} (pre E_A={win_prob:.2f}, Δ {delta:+.1f})"
+                        upsets_scored.append((win_prob, line))
                 elif winner == "B":
+                    win_prob = 1 - E_A
+                    elo_gap = Ra0 - Rb0
                     delta = float(e.get("elo_change", {}).get(b, 0.0))
-                    if (Rb0 + 100 <= Ra0) or ((1 - E_A) <= 0.35):
-                        lines.append(f"Singles upset: {b} def. {a} {sets_string(e)} (pre-match E_B={1-E_A:.2f}, Δ {delta:+.1f})")
-            elif e.get("type") == "doubles_series":
+                    if (win_prob <= HIGHLIGHT_PROB_THRESHOLD) or (elo_gap >= HIGHLIGHT_ELO_GAP):
+                        line = f"Singles upset: {b} def. {a} {sets_string(e)} (pre E_B={win_prob:.2f}, Δ {delta:+.1f})"
+                        upsets_scored.append((win_prob, line))
+
+                # Comeback (lost first set, won match)
+                if e.get("comeback_win") and winner in ("A", "B"):
+                    # Rank comebacks by magnitude of Elo swing for the winner
+                    if winner == "A":
+                        mag = abs(float(e.get("elo_change", {}).get(a, 0.0)))
+                        line = f"Comeback: {a} def. {b} {sets_string(e)} (lost first set, Δ {mag:+.1f})"
+                    else:
+                        mag = abs(float(e.get("elo_change", {}).get(b, 0.0)))
+                        line = f"Comeback: {b} def. {a} {sets_string(e)} (lost first set, Δ {mag:+.1f})"
+                    comebacks_scored.append((mag, line))
+
+            # Doubles
+            elif t == "doubles_series":
                 tA, tB = e.get("teams", [[], []])
+                if not tA or not tB:
+                    continue
+                teamA = " & ".join(tA)
+                teamB = " & ".join(tB)
                 winner = e.get("winner")
                 before = e.get("elos_before", {})
-                if not before or not tA or not tB:
+                if not before:
                     continue
                 Ra0 = sum(before.get(n, players.get(n, {}).get("doubles_elo", 1000)) for n in tA) / 2.0
                 Rb0 = sum(before.get(n, players.get(n, {}).get("doubles_elo", 1000)) for n in tB) / 2.0
                 E_A = expected_score(Ra0, Rb0)
-                teamA = " & ".join(tA); teamB = " & ".join(tB)
+
                 if winner == "A":
+                    win_prob = E_A
+                    elo_gap = Rb0 - Ra0
                     delta = sum(float(e.get("elo_change", {}).get(n, 0.0)) for n in tA)
-                    if (Ra0 + 100 <= Rb0) or (E_A <= 0.35):
-                        lines.append(f"Doubles upset: {teamA} def. {teamB} {sets_string(e)} (pre E_A={E_A:.2f}, team Δ {delta:+.1f})")
+                    if (win_prob <= HIGHLIGHT_PROB_THRESHOLD) or (elo_gap >= HIGHLIGHT_ELO_GAP):
+                        line = f"Doubles upset: {teamA} def. {teamB} {sets_string(e)} (pre E_A={win_prob:.2f}, team Δ {delta:+.1f})"
+                        upsets_scored.append((win_prob, line))
                 elif winner == "B":
+                    win_prob = 1 - E_A
+                    elo_gap = Ra0 - Rb0
                     delta = sum(float(e.get("elo_change", {}).get(n, 0.0)) for n in tB)
-                    if (Rb0 + 100 <= Ra0) or ((1 - E_A) <= 0.35):
-                        lines.append(f"Doubles upset: {teamB} def. {teamA} {sets_string(e)} (pre E_B={1-E_A:.2f}, team Δ {delta:+.1f})")
-        return lines
+                    if (win_prob <= HIGHLIGHT_PROB_THRESHOLD) or (elo_gap >= HIGHLIGHT_ELO_GAP):
+                        line = f"Doubles upset: {teamB} def. {teamA} {sets_string(e)} (pre E_B={win_prob:.2f}, team Δ {delta:+.1f})"
+                        upsets_scored.append((win_prob, line))
+
+                # Comebacks in doubles
+                if e.get("comeback_win") and winner in ("A", "B"):
+                    if winner == "A":
+                        mag = abs(sum(float(e.get("elo_change", {}).get(n, 0.0)) for n in tA))
+                        line = f"Comeback: {teamA} def. {teamB} {sets_string(e)} (lost first set, team Δ {mag:+.1f})"
+                    else:
+                        mag = abs(sum(float(e.get("elo_change", {}).get(n, 0.0)) for n in tB))
+                        line = f"Comeback: {teamB} def. {teamA} {sets_string(e)} (lost first set, team Δ {mag:+.1f})"
+                    comebacks_scored.append((mag, line))
+
+        # Sort and cap results
+        upsets_scored.sort(key=lambda x: x[0])  # lower win prob = bigger upset
+        comebacks_scored.sort(key=lambda x: x[0], reverse=True)  # bigger swing first
+        upsets = [ln for _, ln in upsets_scored[:HIGHLIGHT_UPSETS_MAX]]
+        comebacks = [ln for _, ln in comebacks_scored[:HIGHLIGHT_COMEBACKS_MAX]]
+        return {"upsets": upsets, "comebacks": comebacks}
 
     def daily_stats():
         """Aggregate simple counts for the day."""
@@ -857,11 +924,16 @@ def generate_insights(players, date_str, outfile=None):
 
         # Highlights
         f.write("Highlights:\n")
-        if hi:
-            for line in hi:
-                f.write(f" - {line}\n")
+        if hi.get("upsets"):
+            f.write(" Upsets:\n")
+            for line in hi["upsets"]:
+                f.write(f"  - {line}\n")
         else:
-            f.write(" (no notable upsets flagged today)\n")
+            f.write(" (no upsets flagged today)\n")
+        if hi.get("comebacks"):
+            f.write(" Comebacks:\n")
+            for line in hi["comebacks"]:
+                f.write(f"  - {line}\n")
         f.write("\n")
 
         # Records / Milestones

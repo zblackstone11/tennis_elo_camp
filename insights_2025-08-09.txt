@@ -98,7 +98,6 @@ Active Win Streaks — Singles:
   7. Emma         1
   8. Ben          1
   9. Aliza        1
- 10. Wes          0
 
 Active Win Streaks — Doubles:
   1. Anderson     2
@@ -110,7 +109,6 @@ Active Win Streaks — Doubles:
   7. Harvey       1
   8. Emma         1
   9. Aaron        1
- 10. Wes          0
 
 Daily Stats:
  Matches — Singles: 12, Doubles: 9
@@ -141,9 +139,14 @@ Match Log:
  - [Doubles] Rhys & Aaron def. Liam & Jill  1-4  (team Δ +116.9)
 
 Highlights:
- - Doubles upset: Harvey & Spencer def. Noah & Jack_L 7-6 (pre E_A=0.21, team Δ +77.6)
- - Doubles upset: Noah & Jack_L def. Cadie & Cooper 4-2 (pre E_A=0.27, team Δ +94.5)
- - Doubles upset: Rhys & Aaron def. Liam & Jill 1-4 (pre E_B=0.32, team Δ +116.9)
+ Upsets:
+  - Doubles upset: Harvey & Spencer def. Noah & Jack_L 7-6 (pre E_A=0.21, team Δ +77.6)
+  - Doubles upset: Noah & Jack_L def. Cadie & Cooper 4-2 (pre E_A=0.27, team Δ +94.5)
+  - Doubles upset: Rhys & Aaron def. Liam & Jill 1-4 (pre E_B=0.32, team Δ +116.9)
+  - Doubles upset: Jill & Ishan def. Rhys & Aaron 7-5 (pre E_A=0.43, team Δ +41.1)
+  - Doubles upset: Jill & Rhys def. Liam & Jack_L 1-6, 6-3, 10-5[tiebreak] (pre E_A=0.43, team Δ +29.2)
+ Comebacks:
+  - Comeback: Jill & Rhys def. Liam & Jack_L 1-6, 6-3, 10-5[tiebreak] (lost first set, team Δ +29.2)
 
 Records & Milestones:
  - Aaron: new doubles peak 1200.1
