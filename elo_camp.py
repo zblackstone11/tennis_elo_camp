@@ -3,7 +3,7 @@ Tennis Elo Camp - Elo Rating Tracker for Tennis Matches
 -------------------------------------------------------
 """
 import json
-from datetime import date
+from datetime import date, timedelta
 import os
 from datetime import datetime
 import re
@@ -606,6 +606,44 @@ def generate_insights(players, date_str, outfile=None):
     if not outfile:
         outfile = f"insights_{date_str}.txt"
 
+    # Parse report day and compute inactivity cutoff (7 days prior)
+    report_day = parse_date_yyyy_mm_dd(date_str) or date.today()
+    inactive_cutoff = report_day - timedelta(days=7)
+
+    def compute_last_played_by_mode():
+        """Return {"singles": {name: date|None}, "doubles": {..}} of most recent match dates
+        for each player up to and including report_day. If a player has never played in a mode,
+        they will not appear in the map for that mode (treated as inactive)."""
+        lp = {"singles": {}, "doubles": {}}
+        for e in history:
+            d = parse_date_yyyy_mm_dd(e.get("date", ""))
+            if not d or d > report_day:
+                continue
+            t = e.get("type")
+            if t == "singles_series":
+                a, b = e.get("players", [None, None])
+                for n in (a, b):
+                    if n:
+                        prev = lp["singles"].get(n)
+                        if (prev is None) or (d > prev):
+                            lp["singles"][n] = d
+            elif t == "doubles_series":
+                tA, tB = e.get("teams", [[], []])
+                for n in (tA or []) + (tB or []):
+                    prev = lp["doubles"].get(n)
+                    if (prev is None) or (d > prev):
+                        lp["doubles"][n] = d
+        return lp
+
+    last_played = compute_last_played_by_mode()
+
+    def is_inactive(name, mode):
+        """Return True if the player has not played in `mode` within the last 7 days as of report_day.
+        Players with no history in that mode are considered inactive."""
+        d = last_played.get(mode, {}).get(name)
+        # If never played or last date older than cutoff, mark inactive
+        return (d is None) or (d < inactive_cutoff)
+
     # --- Helpers -------------------------------------------------------------
 
     def movers_for_mode(mode):
@@ -853,12 +891,14 @@ def generate_insights(players, date_str, outfile=None):
 
         f.write("Singles Leaderboard:\n")
         for i, (name, data) in enumerate(singles_lb, 1):
-            f.write(f"{i:>2}. {name:<12} {data[key_s]:.1f}\n")
+            suffix = " (inactive)" if is_inactive(name, "singles") else ""
+            f.write(f"{i:>2}. {name:<12} {data[key_s]:.1f}{suffix}\n")
         f.write("\n")
 
         f.write("Doubles Leaderboard:\n")
         for i, (name, data) in enumerate(doubles_lb, 1):
-            f.write(f"{i:>2}. {name:<12} {data[key_d]:.1f}\n")
+            suffix = " (inactive)" if is_inactive(name, "doubles") else ""
+            f.write(f"{i:>2}. {name:<12} {data[key_d]:.1f}{suffix}\n")
         f.write("\n")
 
         # Movers — Singles

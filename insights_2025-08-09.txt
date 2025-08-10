@@ -5,14 +5,14 @@ Singles Leaderboard:
  1. Cadie        1587.8
  2. Ben          1360.1
  3. Noah         1302.4
- 4. Adam         1300.0
+ 4. Adam         1300.0 (inactive)
  5. Jill         1252.9
  6. Aaron        1248.7
  7. Jack_L       1183.3
- 8. Cooper       1180.0
- 9. Liam         1140.0
-10. Wes          1130.0
-11. Mahika       1080.0
+ 8. Cooper       1180.0 (inactive)
+ 9. Liam         1140.0 (inactive)
+10. Wes          1130.0 (inactive)
+11. Mahika       1080.0 (inactive)
 12. Harvey       1038.5
 13. Jack_W       1025.3
 14. Spencer      1022.7
@@ -28,16 +28,16 @@ Doubles Leaderboard:
  1. Cadie        1534.4
  2. Noah         1366.5
  3. Ben          1345.2
- 4. Adam         1300.0
+ 4. Adam         1300.0 (inactive)
  5. Jill         1215.7
  6. Aaron        1200.1
  7. Jack_L       1183.9
  8. Cooper       1164.4
- 9. Wes          1130.0
+ 9. Wes          1130.0 (inactive)
 10. Harvey       1118.8
 11. Liam         1088.6
 12. Rhys         1081.5
-13. Mahika       1080.0
+13. Mahika       1080.0 (inactive)
 14. Emma         1068.4
 15. Spencer      1041.4
 16. Rishaan      935.2
