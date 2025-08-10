@@ -47,7 +47,7 @@ Doubles Leaderboard:
 20. Aliza        821.9
 21. Anderson     760.1
 
-Biggest Movers (Singles, today):
+Top Risers (Singles, today):
  +1) Aaron        +36.7
  +2) Jack_W       +33.3
  +3) Jill         +24.9
@@ -57,9 +57,17 @@ Biggest Movers (Singles, today):
  +7) Jack_L       +8.3
  +8) Spencer      +6.7
  +9) Ishan        +2.0
- +10) Harvey       -1.5
 
-Biggest Movers (Doubles, today):
+Top Sliders (Singles, today):
+ -1) Shreya       -60.5
+ -2) Noah         -47.6
+ -3) Rhys         -24.9
+ -4) Rishaan      -18.2
+ -5) Emma         -7.6
+ -6) Anderson     -5.8
+ -7) Harvey       -1.5
+
+Top Risers (Doubles, today):
  +1) Rhys         +52.5
  +2) Harvey       +38.8
  +3) Spencer      +22.4
@@ -70,6 +78,15 @@ Biggest Movers (Doubles, today):
  +8) Shreya       +8.4
  +9) Anderson     +8.1
  +10) Rishaan      +6.2
+
+Top Sliders (Doubles, today):
+ -1) Liam         -81.4
+ -2) Cadie        -30.6
+ -3) Cooper       -30.6
+ -4) Jill         -23.3
+ -5) Jack_W       -22.9
+ -6) Aliza        -8.1
+ -7) Jack_L       -6.1
 
 Active Win Streaks — Singles:
   1. Cadie        2
@@ -95,7 +112,67 @@ Active Win Streaks — Doubles:
   9. Aaron        1
  10. Wes          0
 
+Daily Stats:
+ Matches — Singles: 12, Doubles: 9
+ Sets: 33 | Tiebreaks: 3 | Bagels: 5
+ Participants: 18
+
+Match Log:
+ - [Doubles] Emma & Anderson def. Spencer & Aliza  1-6, 6-2, 6-10[tiebreak]  (team Δ +32.8) (TB decider)
+ - [Doubles] Jill & Rhys def. Liam & Jack_L  1-6, 6-3, 10-5[tiebreak]  (team Δ +29.2) (TB decider, comeback)
+ - [Singles] Aaron def. Jack_W  3-6, 0-6  (Δ +20.6)
+ - [Singles] Rishaan def. Ishan  4-6, 6-2, 5-7[tiebreak]  (Δ -18.2) (TB decider)
+ - [Singles] Emma def. Anderson  6-2  (Δ -7.6)
+ - [Singles] Noah def. Jack_L  6-2, 6-4  (Δ -8.3)
+ - [Doubles] Rishaan & Ben def. Aaron & Jack_W  6-2, 6-3  (team Δ +45.8)
+ - [Singles] Cadie def. Ben  7-6, 6-2  (Δ -21.6)
+ - [Singles] Cadie def. Noah  6-1, 6-0  (Δ +39.3)
+ - [Singles] Jill def. Rhys  6-0  (Δ +24.9)
+ - [Singles] Aaron def. Ishan  6-0  (Δ +16.2)
+ - [Singles] Jack_W def. Shreya  6-0  (Δ +53.8)
+ - [Singles] Aliza def. Anderson  2-6  (Δ +13.4)
+ - [Singles] Ben def. Harvey  6-1  (Δ +1.5)
+ - [Singles] Spencer def. Shreya  1-3  (Δ +6.7)
+ - [Doubles] Cadie & Cooper def. Ben & Rishaan  1-6, 1-6  (team Δ +33.4)
+ - [Doubles] Harvey & Spencer def. Noah & Jack_L  7-6  (team Δ +77.6)
+ - [Doubles] Jill & Ishan def. Rhys & Aaron  7-5  (team Δ +41.1)
+ - [Doubles] Liam & Anderson def. Shreya & Aliza  6-7  (team Δ -16.7)
+ - [Doubles] Noah & Jack_L def. Cadie & Cooper  4-2  (team Δ +94.5)
+ - [Doubles] Rhys & Aaron def. Liam & Jill  1-4  (team Δ +116.9)
+
 Highlights:
  - Doubles upset: Harvey & Spencer def. Noah & Jack_L 7-6 (pre E_A=0.21, team Δ +77.6)
  - Doubles upset: Noah & Jack_L def. Cadie & Cooper 4-2 (pre E_A=0.27, team Δ +94.5)
  - Doubles upset: Rhys & Aaron def. Liam & Jill 1-4 (pre E_B=0.32, team Δ +116.9)
+
+Records & Milestones:
+ - Aaron: new doubles peak 1200.1
+ - Aaron: new singles peak 1248.7
+ - Aliza: new singles peak 857.4
+ - Anderson: new doubles peak 796.5
+ - Anderson: new singles peak 721.0
+ - Ben: new doubles peak 1361.9
+ - Ben: new singles peak 1362.8
+ - Cadie: new doubles peak 1581.7
+ - Cadie: new singles peak 1587.8
+ - Cooper: new doubles peak 1211.7
+ - Emma: new doubles peak 1096.5
+ - Harvey: new doubles peak 1118.8
+ - Harvey: new singles peak 1040.6
+ - Ishan: new doubles peak 869.5
+ - Ishan: new singles peak 896.7
+ - Jack_L: new doubles peak 1223.3
+ - Jack_L: new singles peak 1187.3
+ - Jack_W: new singles peak 1025.3
+ - Jill: new doubles peak 1274.1
+ - Jill: new singles peak 1252.9
+ - Liam: new doubles peak 1203.3
+ - Noah: new doubles peak 1366.5
+ - Noah: new singles peak 1351.9
+ - Rhys: new doubles peak 1081.5
+ - Rishaan: new doubles peak 951.9
+ - Rishaan: new singles peak 905.6
+ - Shreya: new doubles peak 911.0
+ - Shreya: new singles peak 900.0
+ - Spencer: new doubles peak 1041.4
+ - Spencer: new singles peak 1022.7

@@ -585,7 +585,9 @@ def record_series_doubles(players, team_a, team_b, set_tokens):
 
 # --- Insights report generation ---
 def generate_insights(players, date_str, outfile=None):
-    """Create a daily insights text file summarizing leaderboards, movers, streaks, and highlights.
+    """Create a daily insights text file summarizing leaderboards, movers (risers/sliders),
+    streaks, highlights, a match log, and daily stats.
+
     Args:
         players: dict loaded from players.json
         date_str: 'YYYY-MM-DD' (filters matches by this date)
@@ -596,18 +598,25 @@ def generate_insights(players, date_str, outfile=None):
     if not outfile:
         outfile = f"insights_{date_str}.txt"
 
-    # Helper: movers on this date by mode
+    # --- Helpers -------------------------------------------------------------
+
     def movers_for_mode(mode):
+        """Return list of (name, delta) sorted descending by delta for the given mode."""
         deltas = {}
         for e in day_entries:
             if entry_mode_matches(e, mode):
                 for name, d in e.get("elo_change", {}).items():
                     deltas[name] = deltas.get(name, 0.0) + float(d)
-        # Sort by delta desc
         return sorted(deltas.items(), key=lambda kv: kv[1], reverse=True)
 
-    # Helper: active streaks snapshot (current, not just for the day)
+    def split_risers_sliders(mov):
+        """Partition into positive and negative movers; negatives sorted ascending."""
+        risers = [(n, d) for (n, d) in mov if d > 0]
+        sliders = sorted([(n, d) for (n, d) in mov if d < 0], key=lambda kv: kv[1])
+        return risers, sliders
+
     def active_streaks(mode):
+        """Snapshot of current win streaks for the mode, sorted desc."""
         rows = []
         for name, pdata in players.items():
             ensure_counters_fields(pdata)
@@ -616,22 +625,20 @@ def generate_insights(players, date_str, outfile=None):
         rows.sort(reverse=True)
         return rows
 
-    # Helper: highlights (simple upset detection)
     def highlights():
+        """Upsets based on pre-match expectation, pulled from history day entries."""
         lines = []
         for e in day_entries:
             if e.get("type") == "singles_series":
                 a, b = e.get("players", [None, None])
                 winner = e.get("winner")
-                # Starting Elos
-                Ra0 = e.get("elos_before", {}).get(a, None)
-                Rb0 = e.get("elos_before", {}).get(b, None)
+                Ra0 = e.get("elos_before", {}).get(a)
+                Rb0 = e.get("elos_before", {}).get(b)
                 if Ra0 is None or Rb0 is None:
                     continue
                 E_A = expected_score(Ra0, Rb0)
                 if winner == "A":
                     delta = float(e.get("elo_change", {}).get(a, 0.0))
-                    # Upset if A started >=100 lower or E_A <= 0.35
                     if (Ra0 + 100 <= Rb0) or (E_A <= 0.35):
                         lines.append(f"Singles upset: {a} def. {b} {sets_string(e)} (pre-match E_A={E_A:.2f}, Δ {delta:+.1f})")
                 elif winner == "B":
@@ -639,7 +646,7 @@ def generate_insights(players, date_str, outfile=None):
                     if (Rb0 + 100 <= Ra0) or ((1 - E_A) <= 0.35):
                         lines.append(f"Singles upset: {b} def. {a} {sets_string(e)} (pre-match E_B={1-E_A:.2f}, Δ {delta:+.1f})")
             elif e.get("type") == "doubles_series":
-                (tA, tB) = e.get("teams", [[], []])
+                tA, tB = e.get("teams", [[], []])
                 winner = e.get("winner")
                 before = e.get("elos_before", {})
                 if not before or not tA or not tB:
@@ -649,7 +656,6 @@ def generate_insights(players, date_str, outfile=None):
                 E_A = expected_score(Ra0, Rb0)
                 teamA = " & ".join(tA); teamB = " & ".join(tB)
                 if winner == "A":
-                    # sum winner's delta (both players)
                     delta = sum(float(e.get("elo_change", {}).get(n, 0.0)) for n in tA)
                     if (Ra0 + 100 <= Rb0) or (E_A <= 0.35):
                         lines.append(f"Doubles upset: {teamA} def. {teamB} {sets_string(e)} (pre E_A={E_A:.2f}, team Δ {delta:+.1f})")
@@ -659,16 +665,121 @@ def generate_insights(players, date_str, outfile=None):
                         lines.append(f"Doubles upset: {teamB} def. {teamA} {sets_string(e)} (pre E_B={1-E_A:.2f}, team Δ {delta:+.1f})")
         return lines
 
-    # Build report
+    def daily_stats():
+        """Aggregate simple counts for the day."""
+        singles_matches = sum(1 for e in day_entries if e.get("type") == "singles_series")
+        doubles_matches = sum(1 for e in day_entries if e.get("type") == "doubles_series")
+        sets_total = sum(len(e.get("sets", [])) for e in day_entries)
+        tiebreaks = sum(1 for e in day_entries for s in e.get("sets", []) if s.get("kind") == "tiebreak")
+        bagels = 0
+        for e in day_entries:
+            for s in e.get("sets", []):
+                kind = s.get("kind", "set")
+                a, b = s.get("games", [0, 0])
+                if kind == "set" and ((a >= 6 and b == 0) or (b >= 6 and a == 0)):
+                    bagels += 1
+        participants = set()
+        for e in day_entries:
+            if e.get("type") == "singles_series":
+                a, b = e.get("players", [None, None])
+                if a: participants.add(a)
+                if b: participants.add(b)
+            elif e.get("type") == "doubles_series":
+                tA, tB = e.get("teams", [[], []])
+                for n in (tA or []) + (tB or []):
+                    participants.add(n)
+        return {
+            "singles_matches": singles_matches,
+            "doubles_matches": doubles_matches,
+            "sets_total": sets_total,
+            "tiebreaks": tiebreaks,
+            "bagels": bagels,
+            "participants": len(participants),
+        }
+
+    def match_log_lines():
+        """Format a compact match log for all day entries."""
+        lines = []
+        for e in day_entries:
+            t = e.get("type")
+            if t == "singles_series":
+                a, b = e.get("players", [None, None])
+                w = e.get("winner")
+                if w == "A":
+                    left = f"{a} def. {b}"
+                    dlt = float(e.get("elo_change", {}).get(a, 0.0))
+                elif w == "B":
+                    left = f"{b} def. {a}"
+                    dlt = float(e.get("elo_change", {}).get(b, 0.0))
+                else:
+                    left = f"{a} tied {b}"
+                    dlt = 0.0
+                flags = []
+                if e.get("decided_by_tiebreak"):
+                    flags.append("TB decider")
+                if e.get("comeback_win"):
+                    flags.append("comeback")
+                flag_str = f" ({', '.join(flags)})" if flags else ""
+                lines.append(f"[Singles] {left}  {sets_string(e)}  (Δ {dlt:+.1f}){flag_str}")
+            elif t == "doubles_series":
+                tA, tB = e.get("teams", [[], []])
+                teamA = " & ".join(tA or [])
+                teamB = " & ".join(tB or [])
+                w = e.get("winner")
+                if w == "A":
+                    left = f"{teamA} def. {teamB}"
+                    dlt = sum(float(e.get("elo_change", {}).get(n, 0.0)) for n in (tA or []))
+                elif w == "B":
+                    left = f"{teamB} def. {teamA}"
+                    dlt = sum(float(e.get("elo_change", {}).get(n, 0.0)) for n in (tB or []))
+                else:
+                    left = f"{teamA} tied {teamB}"
+                    dlt = 0.0
+                flags = []
+                if e.get("decided_by_tiebreak"):
+                    flags.append("TB decider")
+                if e.get("comeback_win"):
+                    flags.append("comeback")
+                flag_str = f" ({', '.join(flags)})" if flags else ""
+                lines.append(f"[Doubles] {left}  {sets_string(e)}  (team Δ {dlt:+.1f}){flag_str}")
+        return lines
+
+    # --- Build report sections ----------------------------------------------
+
+    # Leaderboards
     key_s = "singles_elo"; key_d = "doubles_elo"
     singles_lb = sorted(players.items(), key=lambda kv: kv[1][key_s], reverse=True)
     doubles_lb = sorted(players.items(), key=lambda kv: kv[1][key_d], reverse=True)
+
+    # Movers
     mov_s = movers_for_mode("singles")
     mov_d = movers_for_mode("doubles")
+    risers_s, sliders_s = split_risers_sliders(mov_s)
+    risers_d, sliders_d = split_risers_sliders(mov_d)
+
+    # Streaks (current, snapshot)
     st_s = active_streaks("singles")
     st_d = active_streaks("doubles")
-    hi = highlights()
 
+    # Highlights & Match log
+    hi = highlights()
+    mlog = match_log_lines()
+
+    # Daily stats
+    stats = daily_stats()
+
+    # Records / Milestones (new peaks reached today)
+    milestones = []
+    for name, pdata in players.items():
+        # Peak singles
+        if pdata.get("max_singles_date") == date_str:
+            milestones.append(f"{name}: new singles peak {pdata.get('max_singles_elo', pdata.get('singles_elo', 0)):.1f}")
+        # Peak doubles
+        if pdata.get("max_doubles_date") == date_str:
+            milestones.append(f"{name}: new doubles peak {pdata.get('max_doubles_elo', pdata.get('doubles_elo', 0)):.1f}")
+    milestones.sort()
+
+    # --- Write file ----------------------------------------------------------
     with open(outfile, "w") as f:
         f.write(f"Insights — {date_str}\n")
         f.write("=" * (11 + len(date_str)) + "\n\n")
@@ -683,22 +794,41 @@ def generate_insights(players, date_str, outfile=None):
             f.write(f"{i:>2}. {name:<12} {data[key_d]:.1f}\n")
         f.write("\n")
 
-        f.write("Biggest Movers (Singles, today):\n")
-        if mov_s:
-            for rank, (name, dlt) in enumerate(mov_s[:10], 1):
+        # Movers — Singles
+        f.write("Top Risers (Singles, today):\n")
+        if risers_s:
+            for rank, (name, dlt) in enumerate(risers_s[:10], 1):
                 f.write(f" +{rank}) {name:<12} {dlt:+.1f}\n")
         else:
-            f.write(" (no singles matches recorded for this date)\n")
+            f.write(" (no singles risers today)\n")
         f.write("\n")
 
-        f.write("Biggest Movers (Doubles, today):\n")
-        if mov_d:
-            for rank, (name, dlt) in enumerate(mov_d[:10], 1):
+        f.write("Top Sliders (Singles, today):\n")
+        if sliders_s:
+            for rank, (name, dlt) in enumerate(sliders_s[:10], 1):
+                f.write(f" -{rank}) {name:<12} {dlt:+.1f}\n")
+        else:
+            f.write(" (no singles sliders today)\n")
+        f.write("\n")
+
+        # Movers — Doubles
+        f.write("Top Risers (Doubles, today):\n")
+        if risers_d:
+            for rank, (name, dlt) in enumerate(risers_d[:10], 1):
                 f.write(f" +{rank}) {name:<12} {dlt:+.1f}\n")
         else:
-            f.write(" (no doubles matches recorded for this date)\n")
+            f.write(" (no doubles risers today)\n")
         f.write("\n")
 
+        f.write("Top Sliders (Doubles, today):\n")
+        if sliders_d:
+            for rank, (name, dlt) in enumerate(sliders_d[:10], 1):
+                f.write(f" -{rank}) {name:<12} {dlt:+.1f}\n")
+        else:
+            f.write(" (no doubles sliders today)\n")
+        f.write("\n")
+
+        # Streaks
         f.write("Active Win Streaks — Singles:\n")
         for i, (st, name) in enumerate(st_s[:10], 1):
             f.write(f" {i:>2}. {name:<12} {st}\n")
@@ -709,12 +839,38 @@ def generate_insights(players, date_str, outfile=None):
             f.write(f" {i:>2}. {name:<12} {st}\n")
         f.write("\n")
 
+        # Daily Stats
+        f.write("Daily Stats:\n")
+        f.write(f" Matches — Singles: {stats['singles_matches']}, Doubles: {stats['doubles_matches']}\n")
+        f.write(f" Sets: {stats['sets_total']} | Tiebreaks: {stats['tiebreaks']} | Bagels: {stats['bagels']}\n")
+        f.write(f" Participants: {stats['participants']}\n")
+        f.write("\n")
+
+        # Match Log
+        f.write("Match Log:\n")
+        if mlog:
+            for line in mlog:
+                f.write(f" - {line}\n")
+        else:
+            f.write(" (no matches recorded for this date)\n")
+        f.write("\n")
+
+        # Highlights
         f.write("Highlights:\n")
         if hi:
             for line in hi:
                 f.write(f" - {line}\n")
         else:
             f.write(" (no notable upsets flagged today)\n")
+        f.write("\n")
+
+        # Records / Milestones
+        f.write("Records & Milestones:\n")
+        if milestones:
+            for m in milestones:
+                f.write(f" - {m}\n")
+        else:
+            f.write(" (no new peaks recorded today)\n")
 
     return outfile
 
