@@ -319,5 +319,38 @@
       "Rishaan": -6.181862408965458,
       "Rhys": -6.181862408965571
     }
+  },
+  {
+    "timestamp": "2025-08-11T10:29:53.904456",
+    "date": "2025-08-11",
+    "type": "singles_series",
+    "players": [
+      "Cadie",
+      "Harvey"
+    ],
+    "sets": [
+      {
+        "games": [
+          6,
+          2
+        ],
+        "kind": "set"
+      }
+    ],
+    "winner": "A",
+    "decided_by_tiebreak": false,
+    "comeback_win": false,
+    "elos_before": {
+      "Cadie": 1520.3822402235285,
+      "Harvey": 1114.734759585412
+    },
+    "elos_after": {
+      "Cadie": 1503.9144711850176,
+      "Harvey": 1131.2025286239227
+    },
+    "elo_change": {
+      "Cadie": -16.467769038510824,
+      "Harvey": 16.467769038510824
+    }
   }
 ]
