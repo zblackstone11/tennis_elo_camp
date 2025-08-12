@@ -1,12 +1,12 @@
 {
   "Cooper": {
     "singles_elo": 1179.7736244757912,
-    "doubles_elo": 1206.1818624089656,
-    "last_match_date": "2025-08-11",
+    "doubles_elo": 1221.641080536085,
+    "last_match_date": "2025-08-12",
     "max_singles_elo": 1200.0,
     "max_singles_date": "2025-08-11",
-    "max_doubles_elo": 1206.1818624089656,
-    "max_doubles_date": "2025-08-11",
+    "max_doubles_elo": 1223.875551526173,
+    "max_doubles_date": "2025-08-12",
     "counters": {
       "singles": {
         "matches_played": 1,
@@ -21,23 +21,23 @@
         "best_win_streak": 0
       },
       "doubles": {
-        "matches_played": 1,
+        "matches_played": 3,
         "matches_won": 1,
-        "sets_played": 1,
+        "sets_played": 3,
         "sets_won": 1,
         "tiebreaks_played": 0,
         "tiebreaks_won": 0,
         "bagels_given": 0,
         "bagels_taken": 0,
-        "current_win_streak": 1,
+        "current_win_streak": 0,
         "best_win_streak": 1
       }
     }
   },
   "Jack": {
     "singles_elo": 1179.6177597764715,
-    "doubles_elo": 1194.4629763663847,
-    "last_match_date": "2025-08-11",
+    "doubles_elo": 1195.765487467311,
+    "last_match_date": "2025-08-12",
     "max_singles_elo": 1200.0,
     "max_singles_date": "2025-08-11",
     "max_doubles_elo": 1200.0,
@@ -56,62 +56,62 @@
         "best_win_streak": 0
       },
       "doubles": {
-        "matches_played": 1,
-        "matches_won": 0,
-        "sets_played": 1,
-        "sets_won": 0,
+        "matches_played": 3,
+        "matches_won": 1,
+        "sets_played": 3,
+        "sets_won": 1,
         "tiebreaks_played": 0,
         "tiebreaks_won": 0,
         "bagels_given": 0,
         "bagels_taken": 0,
         "current_win_streak": 0,
-        "best_win_streak": 0
+        "best_win_streak": 1
       }
     }
   },
   "Devin": {
-    "singles_elo": 1017.9,
-    "doubles_elo": 1006.1818624089655,
-    "last_match_date": "2025-08-11",
+    "singles_elo": 991.7914229969028,
+    "doubles_elo": 983.6290646512825,
+    "last_match_date": "2025-08-12",
     "max_singles_elo": 1017.9,
     "max_singles_date": "2025-08-11",
     "max_doubles_elo": 1006.1818624089655,
     "max_doubles_date": "2025-08-11",
     "counters": {
       "singles": {
-        "matches_played": 1,
+        "matches_played": 2,
         "matches_won": 1,
-        "sets_played": 1,
+        "sets_played": 2,
         "sets_won": 1,
         "tiebreaks_played": 0,
         "tiebreaks_won": 0,
         "bagels_given": 0,
         "bagels_taken": 0,
-        "current_win_streak": 1,
+        "current_win_streak": 0,
         "best_win_streak": 1
       },
       "doubles": {
-        "matches_played": 1,
+        "matches_played": 2,
         "matches_won": 1,
-        "sets_played": 1,
+        "sets_played": 2,
         "sets_won": 1,
         "tiebreaks_played": 0,
         "tiebreaks_won": 0,
         "bagels_given": 0,
         "bagels_taken": 0,
-        "current_win_streak": 1,
+        "current_win_streak": 0,
         "best_win_streak": 1
       }
     }
   },
   "Owen": {
     "singles_elo": 885.265240414588,
-    "doubles_elo": 894.462976366385,
-    "last_match_date": "2025-08-11",
+    "doubles_elo": 895.660156964578,
+    "last_match_date": "2025-08-12",
     "max_singles_elo": 900.0,
     "max_singles_date": "2025-08-11",
-    "max_doubles_elo": 900.0,
-    "max_doubles_date": "2025-08-11",
+    "max_doubles_elo": 917.0157741240679,
+    "max_doubles_date": "2025-08-12",
     "counters": {
       "singles": {
         "matches_played": 1,
@@ -126,16 +126,16 @@
         "best_win_streak": 0
       },
       "doubles": {
-        "matches_played": 1,
-        "matches_won": 0,
-        "sets_played": 1,
-        "sets_won": 0,
+        "matches_played": 3,
+        "matches_won": 1,
+        "sets_played": 3,
+        "sets_won": 1,
         "tiebreaks_played": 0,
         "tiebreaks_won": 0,
         "bagels_given": 0,
         "bagels_taken": 0,
         "current_win_streak": 0,
-        "best_win_streak": 0
+        "best_win_streak": 1
       }
     }
   },
@@ -175,30 +175,30 @@
     }
   },
   "Rhys": {
-    "singles_elo": 1142.3190194204622,
-    "doubles_elo": 1093.8181375910344,
-    "last_match_date": "2025-08-11",
-    "max_singles_elo": 1142.3190194204622,
-    "max_singles_date": "2025-08-11",
+    "singles_elo": 1168.4275964235594,
+    "doubles_elo": 1071.2653398333514,
+    "last_match_date": "2025-08-12",
+    "max_singles_elo": 1168.4275964235594,
+    "max_singles_date": "2025-08-12",
     "max_doubles_elo": 1100.0,
     "max_doubles_date": "2025-08-11",
     "counters": {
       "singles": {
-        "matches_played": 1,
-        "matches_won": 1,
-        "sets_played": 1,
-        "sets_won": 1,
+        "matches_played": 2,
+        "matches_won": 2,
+        "sets_played": 2,
+        "sets_won": 2,
         "tiebreaks_played": 0,
         "tiebreaks_won": 0,
         "bagels_given": 0,
         "bagels_taken": 0,
-        "current_win_streak": 1,
-        "best_win_streak": 1
+        "current_win_streak": 2,
+        "best_win_streak": 2
       },
       "doubles": {
-        "matches_played": 1,
+        "matches_played": 2,
         "matches_won": 0,
-        "sets_played": 1,
+        "sets_played": 2,
         "sets_won": 0,
         "tiebreaks_played": 0,
         "tiebreaks_won": 0,
@@ -210,48 +210,48 @@
     }
   },
   "Liam": {
-    "singles_elo": 1113.5912250266106,
-    "doubles_elo": 1205.5370236336153,
-    "last_match_date": "2025-08-11",
+    "singles_elo": 1141.9896079130142,
+    "doubles_elo": 1197.1561590195925,
+    "last_match_date": "2025-08-12",
     "max_singles_elo": 1200.0,
     "max_singles_date": "2025-08-11",
     "max_doubles_elo": 1205.5370236336153,
     "max_doubles_date": "2025-08-11",
     "counters": {
       "singles": {
-        "matches_played": 1,
-        "matches_won": 0,
-        "sets_played": 1,
-        "sets_won": 0,
-        "tiebreaks_played": 0,
-        "tiebreaks_won": 0,
-        "bagels_given": 0,
-        "bagels_taken": 1,
-        "current_win_streak": 0,
-        "best_win_streak": 0
-      },
-      "doubles": {
-        "matches_played": 1,
+        "matches_played": 2,
         "matches_won": 1,
-        "sets_played": 1,
+        "sets_played": 2,
         "sets_won": 1,
         "tiebreaks_played": 0,
         "tiebreaks_won": 0,
         "bagels_given": 0,
-        "bagels_taken": 0,
+        "bagels_taken": 1,
         "current_win_streak": 1,
         "best_win_streak": 1
+      },
+      "doubles": {
+        "matches_played": 2,
+        "matches_won": 2,
+        "sets_played": 2,
+        "sets_won": 2,
+        "tiebreaks_played": 0,
+        "tiebreaks_won": 0,
+        "bagels_given": 0,
+        "bagels_taken": 0,
+        "current_win_streak": 2,
+        "best_win_streak": 2
       }
     }
   },
   "Harvey": {
     "singles_elo": 1131.2025286239227,
-    "doubles_elo": 1105.5370236336153,
+    "doubles_elo": 1133.9709943062014,
     "last_match_date": "2025-08-12",
     "max_singles_elo": 1132.5263963393015,
     "max_singles_date": "2025-08-12",
-    "max_doubles_elo": 1105.5370236336153,
-    "max_doubles_date": "2025-08-11",
+    "max_doubles_elo": 1133.9709943062014,
+    "max_doubles_date": "2025-08-12",
     "counters": {
       "singles": {
         "matches_played": 2,
@@ -266,10 +266,10 @@
         "best_win_streak": 1
       },
       "doubles": {
-        "matches_played": 1,
-        "matches_won": 1,
-        "sets_played": 1,
-        "sets_won": 1,
+        "matches_played": 3,
+        "matches_won": 2,
+        "sets_played": 3,
+        "sets_won": 2,
         "tiebreaks_played": 0,
         "tiebreaks_won": 0,
         "bagels_given": 0,
@@ -281,12 +281,12 @@
   },
   "Spencer": {
     "singles_elo": 1232.886630214436,
-    "doubles_elo": 1100.0,
-    "last_match_date": "2025-08-11",
+    "doubles_elo": 1143.9084149171726,
+    "last_match_date": "2025-08-12",
     "max_singles_elo": 1232.886630214436,
     "max_singles_date": "2025-08-11",
-    "max_doubles_elo": 1100.0,
-    "max_doubles_date": "2025-08-11",
+    "max_doubles_elo": 1143.9084149171726,
+    "max_doubles_date": "2025-08-12",
     "counters": {
       "singles": {
         "matches_played": 3,
@@ -301,32 +301,32 @@
         "best_win_streak": 3
       },
       "doubles": {
-        "matches_played": 0,
-        "matches_won": 0,
-        "sets_played": 0,
-        "sets_won": 0,
+        "matches_played": 2,
+        "matches_won": 2,
+        "sets_played": 2,
+        "sets_won": 2,
         "tiebreaks_played": 0,
         "tiebreaks_won": 0,
         "bagels_given": 0,
         "bagels_taken": 0,
-        "current_win_streak": 0,
-        "best_win_streak": 0
+        "current_win_streak": 2,
+        "best_win_streak": 2
       }
     }
   },
   "Lucas": {
-    "singles_elo": 1131.4295008627,
-    "doubles_elo": 1200.0,
-    "last_match_date": "2025-08-11",
+    "singles_elo": 1103.0311179762964,
+    "doubles_elo": 1178.6443828405104,
+    "last_match_date": "2025-08-12",
     "max_singles_elo": 1200.0,
     "max_singles_date": "2025-08-11",
     "max_doubles_elo": 1200.0,
     "max_doubles_date": "2025-08-11",
     "counters": {
       "singles": {
-        "matches_played": 2,
+        "matches_played": 3,
         "matches_won": 0,
-        "sets_played": 2,
+        "sets_played": 3,
         "sets_won": 0,
         "tiebreaks_played": 0,
         "tiebreaks_won": 0,
@@ -336,9 +336,9 @@
         "best_win_streak": 0
       },
       "doubles": {
-        "matches_played": 0,
+        "matches_played": 1,
         "matches_won": 0,
-        "sets_played": 0,
+        "sets_played": 1,
         "sets_won": 0,
         "tiebreaks_played": 0,
         "tiebreaks_won": 0,
@@ -351,7 +351,7 @@
   },
   "Cadie": {
     "singles_elo": 1503.9144711850176,
-    "doubles_elo": 1500.0,
+    "doubles_elo": 1484.5407818728806,
     "last_match_date": "2025-08-12",
     "max_singles_elo": 1520.3822402235285,
     "max_singles_date": "2025-08-11",
@@ -371,16 +371,16 @@
         "best_win_streak": 2
       },
       "doubles": {
-        "matches_played": 0,
-        "matches_won": 0,
-        "sets_played": 0,
-        "sets_won": 0,
+        "matches_played": 2,
+        "matches_won": 2,
+        "sets_played": 2,
+        "sets_won": 2,
         "tiebreaks_played": 0,
         "tiebreaks_won": 0,
         "bagels_given": 0,
         "bagels_taken": 0,
-        "current_win_streak": 0,
-        "best_win_streak": 0
+        "current_win_streak": 2,
+        "best_win_streak": 2
       }
     }
   }
