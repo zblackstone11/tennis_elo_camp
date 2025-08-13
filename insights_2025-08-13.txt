@@ -1,0 +1,85 @@
+Insights — 2025-08-13
+=====================
+
+Singles Leaderboard:
+ 1. Cadie        1481.8
+ 2. Jack         1237.8
+ 3. Cooper       1179.8
+ 4. Spencer      1174.7
+ 5. Liam         1164.1
+ 6. Rhys         1155.5
+ 7. Harvey       1151.6
+ 8. Lucas        1082.7
+ 9. Rishaan      995.0
+10. Devin        992.0
+11. Owen         885.1
+
+Doubles Leaderboard:
+ 1. Cadie        1397.7
+ 2. Cooper       1208.5
+ 3. Liam         1203.7
+ 4. Jack         1195.8
+ 5. Lucas        1178.1
+ 6. Spencer      1144.4
+ 7. Harvey       1123.6
+ 8. Rhys         1075.6
+ 9. Rishaan      998.2
+10. Devin        983.6
+11. Owen         890.8
+
+Top Risers (Singles, today):
+ +1) Jack         +58.2
+ +2) Liam         +22.1
+ +3) Harvey       +20.4
+ +4) Rishaan      +12.9
+ +5) Devin        +0.2
+
+Top Sliders (Singles, today):
+ -1) Spencer      -58.2
+ -2) Cadie        -22.1
+ -3) Lucas        -20.4
+ -4) Rhys         -12.9
+ -5) Owen         -0.2
+
+Top Risers (Doubles, today):
+ +1) Rhys         +4.4
+ +2) Rishaan      +4.4
+
+Top Sliders (Doubles, today):
+ -1) Harvey       -4.4
+ -2) Owen         -4.4
+
+Active Win Streaks — Singles:
+  1. Rhys         3
+  2. Cadie        3
+  3. Jack         1
+  4. Harvey       1
+  5. Devin        1
+
+Active Win Streaks — Doubles:
+  1. Spencer      2
+  2. Liam         2
+  3. Cadie        2
+  4. Rishaan      1
+  5. Rhys         1
+
+Daily Stats:
+ Matches — Singles: 5, Doubles: 1
+ Sets: 6 | Tiebreaks: 0 | Bagels: 0
+ Participants: 10
+
+Match Log:
+ - [Singles] Jack def. Spencer  6-1  (Δ +58.2)
+ - [Singles] Rhys def. Rishaan  7-5  (Δ -12.9)
+ - [Singles] Cadie def. Liam  6-3  (Δ -22.1)
+ - [Singles] Harvey def. Lucas  6-3  (Δ +20.4)
+ - [Singles] Devin def. Owen  6-4  (Δ +0.2)
+ - [Doubles] Rhys & Rishaan def. Owen & Harvey  7-6  (team Δ +8.7)
+
+Highlights:
+ Upsets:
+  - Singles upset: Jack def. Spencer 6-1 (pre E_A=0.42, Δ +58.2)
+
+Records & Milestones:
+ - Harvey: new singles peak 1151.6
+ - Jack: new singles peak 1237.8
