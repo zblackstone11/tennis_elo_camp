@@ -1,0 +1,95 @@
+Insights — 2025-08-14
+=====================
+
+Singles Leaderboard:
+ 1. Cadie        1478.3
+ 2. Jack         1237.8
+ 3. Harvey       1183.2
+ 4. Cooper       1179.8
+ 5. Liam         1167.6
+ 6. Rhys         1163.1
+ 7. Spencer      1143.1
+ 8. Lucas        1082.7
+ 9. Rishaan      1010.8
+10. Devin        984.4
+11. Owen         869.2
+
+Doubles Leaderboard:
+ 1. Cadie        1398.0
+ 2. Cooper       1208.5
+ 3. Liam         1203.4
+ 4. Jack         1196.3
+ 5. Lucas        1177.5
+ 6. Spencer      1173.1
+ 7. Harvey       1095.0
+ 8. Rhys         1076.5
+ 9. Devin        982.7
+10. Rishaan      969.6
+11. Owen         919.4
+
+Top Risers (Singles, today):
+ +1) Harvey       +31.7
+ +2) Rishaan      +15.9
+ +3) Rhys         +7.6
+ +4) Liam         +3.5
+
+Top Sliders (Singles, today):
+ -1) Spencer      -31.7
+ -2) Owen         -15.9
+ -3) Devin        -7.6
+ -4) Cadie        -3.5
+
+Top Risers (Doubles, today):
+ +1) Owen         +28.6
+ +2) Spencer      +28.6
+ +3) Rhys         +0.9
+ +4) Jack         +0.6
+ +5) Cadie        +0.3
+
+Top Sliders (Doubles, today):
+ -1) Rishaan      -28.6
+ -2) Harvey       -28.6
+ -3) Devin        -0.9
+ -4) Lucas        -0.6
+ -5) Liam         -0.3
+
+Active Win Streaks — Singles:
+  1. Rhys         4
+  2. Cadie        4
+  3. Harvey       3
+  4. Rishaan      1
+  5. Jack         1
+
+Active Win Streaks — Doubles:
+  1. Spencer      3
+  2. Cadie        3
+  3. Rhys         2
+  4. Owen         1
+  5. Jack         1
+
+Daily Stats:
+ Matches — Singles: 5, Doubles: 3
+ Sets: 8 | Tiebreaks: 2 | Bagels: 0
+ Participants: 10
+
+Match Log:
+ - [Doubles] Cadie & Lucas def. Liam & Jack  4-6  (team Δ +0.6)
+ - [Doubles] Jack & Rhys def. Devin & Lucas  5-4  (team Δ +1.8)
+ - [Doubles] Spencer & Owen def. Harvey & Rishaan  6-3  (team Δ +57.2)
+ - [Singles] Harvey def. Spencer  4-6  (Δ +21.9)
+ - [Singles] Rhys def. Devin  6-2  (Δ +7.6)
+ - [Singles] Rishaan def. Owen  6-2  (Δ +15.9)
+ - [Singles] Cadie def. Liam  10-4[tiebreak]  (Δ -3.5) (TB decider)
+ - [Singles] Harvey def. Spencer  6-9[tiebreak]  (Δ +9.8) (TB decider)
+
+Highlights:
+ Upsets:
+  - Doubles upset: Spencer & Owen def. Harvey & Rishaan 6-3 (pre E_A=0.44, team Δ +57.2)
+  - Singles upset: Harvey def. Spencer 4-6 (pre E_B=0.47, Δ +21.9)
+
+Records & Milestones:
+ - Harvey: new singles peak 1183.2
+ - Liam: new doubles peak 1206.3
+ - Owen: new doubles peak 919.4
+ - Rishaan: new singles peak 1010.8
+ - Spencer: new doubles peak 1173.1
