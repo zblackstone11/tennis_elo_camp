@@ -1,0 +1,103 @@
+Insights — 2025-08-15
+=====================
+
+Singles Leaderboard:
+ 1. Cadie        1462.6
+ 2. Jack         1265.9
+ 3. Harvey       1182.6
+ 4. Cooper       1179.8
+ 5. Rhys         1173.4
+ 6. Liam         1132.9
+ 7. Spencer      1117.9
+ 8. Lucas        1069.2
+ 9. Devin        1034.0
+10. Rishaan      1000.1
+11. Owen         881.6
+
+Doubles Leaderboard:
+ 1. Cadie        1375.6
+ 2. Liam         1213.0
+ 3. Cooper       1208.5
+ 4. Jack         1186.8
+ 5. Lucas        1177.5
+ 6. Spencer      1150.7
+ 7. Rhys         1098.9
+ 8. Harvey       1095.0
+ 9. Devin        1005.1
+10. Rishaan      979.1
+11. Owen         909.8
+
+Top Risers (Singles, today):
+ +1) Devin        +49.6
+ +2) Jack         +28.1
+ +3) Owen         +12.4
+ +4) Rhys         +10.3
+
+Top Sliders (Singles, today):
+ -1) Liam         -34.7
+ -2) Spencer      -25.2
+ -3) Cadie        -15.7
+ -4) Lucas        -13.5
+ -5) Rishaan      -10.7
+ -6) Harvey       -0.6
+
+Top Risers (Doubles, today):
+ +1) Devin        +22.4
+ +2) Rhys         +22.4
+ +3) Liam         +9.6
+ +4) Rishaan      +9.6
+
+Top Sliders (Doubles, today):
+ -1) Spencer      -22.4
+ -2) Cadie        -22.4
+ -3) Jack         -9.6
+ -4) Owen         -9.6
+
+Active Win Streaks — Singles:
+  1. Cadie        8
+  2. Rishaan      1
+
+Active Win Streaks — Doubles:
+  1. Spencer      4
+  2. Cadie        4
+  3. Rishaan      1
+  4. Liam         1
+
+Daily Stats:
+ Matches — Singles: 16, Doubles: 2
+ Sets: 18 | Tiebreaks: 10 | Bagels: 0
+ Participants: 10
+
+Match Log:
+ - [Singles] Cadie def. Harvey  6-2  (Δ -8.2)
+ - [Doubles] Liam & Rishaan def. Jack & Owen  6-4  (team Δ +19.1)
+ - [Singles] Devin def. Spencer  6-4  (Δ +43.3)
+ - [Singles] Rhys def. Lucas  6-1  (Δ +33.6)
+ - [Singles] Jack def. Liam  6-2  (Δ +22.5)
+ - [Singles] Lucas def. Rishaan  6-3  (Δ +18.6)
+ - [Doubles] Spencer & Cadie def. Rhys & Devin  7-5  (team Δ -44.8)
+ - [Singles] Harvey def. Owen  6-2  (Δ -10.6)
+ - [Singles] Liam def. Owen  7-5[tiebreak]  (Δ -4.7) (TB decider)
+ - [Singles] Harvey def. Rishaan  10-8[tiebreak]  (Δ -5.0) (TB decider)
+ - [Singles] Jack def. Lucas  7-5[tiebreak]  (Δ -1.5) (TB decider)
+ - [Singles] Cadie def. Devin  7-3[tiebreak]  (Δ -6.3) (TB decider)
+ - [Singles] Harvey def. Liam  8-6[tiebreak]  (Δ +7.5) (TB decider)
+ - [Singles] Spencer def. Rhys  7-2[tiebreak]  (Δ +23.3) (TB decider)
+ - [Singles] Rishaan def. Owen  7-5[tiebreak]  (Δ +2.9) (TB decider)
+ - [Singles] Jack def. Spencer  7-3[tiebreak]  (Δ +5.2) (TB decider)
+ - [Singles] Cadie def. Harvey  7-2[tiebreak]  (Δ +0.6) (TB decider)
+ - [Singles] Cadie def. Jack  7-5[tiebreak]  (Δ -1.9) (TB decider)
+
+Highlights:
+ Upsets:
+  - Singles upset: Devin def. Spencer 6-4 (pre E_A=0.29, Δ +43.3)
+  - Singles upset: Spencer def. Rhys 7-2[tiebreak] (pre E_A=0.36, Δ +23.3)
+
+Records & Milestones:
+ - Devin: new doubles peak 1006.5
+ - Devin: new singles peak 1035.1
+ - Harvey: new singles peak 1193.7
+ - Jack: new singles peak 1269.5
+ - Liam: new doubles peak 1213.0
+ - Rhys: new doubles peak 1100.3
+ - Rhys: new singles peak 1196.7

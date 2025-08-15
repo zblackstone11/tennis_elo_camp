@@ -1108,5 +1108,623 @@
       "Spencer": -9.80494064575555,
       "Harvey": 9.80494064575555
     }
+  },
+  {
+    "timestamp": "2025-08-15T18:01:24.383103",
+    "date": "2025-08-15",
+    "type": "singles_series",
+    "players": [
+      "Cadie",
+      "Harvey"
+    ],
+    "sets": [
+      {
+        "games": [
+          6,
+          2
+        ],
+        "kind": "set"
+      }
+    ],
+    "winner": "A",
+    "decided_by_tiebreak": false,
+    "comeback_win": false,
+    "elos_before": {
+      "Cadie": 1478.3047206319302,
+      "Harvey": 1183.2268424973104
+    },
+    "elos_after": {
+      "Cadie": 1470.1356672505542,
+      "Harvey": 1191.3958958786864
+    },
+    "elo_change": {
+      "Cadie": -8.169053381375988,
+      "Harvey": 8.169053381375988
+    }
+  },
+  {
+    "timestamp": "2025-08-15T18:01:24.415452",
+    "date": "2025-08-15",
+    "type": "doubles_series",
+    "teams": [
+      [
+        "Liam",
+        "Rishaan"
+      ],
+      [
+        "Jack",
+        "Owen"
+      ]
+    ],
+    "sets": [
+      {
+        "games": [
+          6,
+          4
+        ],
+        "kind": "set"
+      }
+    ],
+    "winner": "A",
+    "decided_by_tiebreak": false,
+    "comeback_win": false,
+    "elos_before": {
+      "Liam": 1203.4450426727276,
+      "Rishaan": 969.5788996635807,
+      "Jack": 1196.3462775920445,
+      "Owen": 919.3579037757237
+    },
+    "elos_after": {
+      "Liam": 1213.006640800931,
+      "Rishaan": 979.1404977917842,
+      "Jack": 1186.784679463841,
+      "Owen": 909.7963056475202
+    },
+    "elo_change": {
+      "Liam": 9.561598128203514,
+      "Rishaan": 9.561598128203514,
+      "Jack": -9.561598128203514,
+      "Owen": -9.561598128203514
+    }
+  },
+  {
+    "timestamp": "2025-08-15T18:01:24.449938",
+    "date": "2025-08-15",
+    "type": "singles_series",
+    "players": [
+      "Devin",
+      "Spencer"
+    ],
+    "sets": [
+      {
+        "games": [
+          6,
+          4
+        ],
+        "kind": "set"
+      }
+    ],
+    "winner": "A",
+    "decided_by_tiebreak": false,
+    "comeback_win": false,
+    "elos_before": {
+      "Devin": 984.4219639240663,
+      "Spencer": 1143.0678341069456
+    },
+    "elos_after": {
+      "Devin": 1027.7478029529982,
+      "Spencer": 1099.7419950780136
+    },
+    "elo_change": {
+      "Devin": 43.32583902893191,
+      "Spencer": -43.32583902893202
+    }
+  },
+  {
+    "timestamp": "2025-08-15T18:01:24.482227",
+    "date": "2025-08-15",
+    "type": "singles_series",
+    "players": [
+      "Rhys",
+      "Lucas"
+    ],
+    "sets": [
+      {
+        "games": [
+          6,
+          1
+        ],
+        "kind": "set"
+      }
+    ],
+    "winner": "A",
+    "decided_by_tiebreak": false,
+    "comeback_win": false,
+    "elos_before": {
+      "Rhys": 1163.113838924508,
+      "Lucas": 1082.6751587425642
+    },
+    "elos_after": {
+      "Rhys": 1196.72577234904,
+      "Lucas": 1049.0632253180322
+    },
+    "elo_change": {
+      "Rhys": 33.611933424532026,
+      "Lucas": -33.611933424532026
+    }
+  },
+  {
+    "timestamp": "2025-08-15T18:01:24.514229",
+    "date": "2025-08-15",
+    "type": "singles_series",
+    "players": [
+      "Jack",
+      "Liam"
+    ],
+    "sets": [
+      {
+        "games": [
+          6,
+          2
+        ],
+        "kind": "set"
+      }
+    ],
+    "winner": "A",
+    "decided_by_tiebreak": false,
+    "comeback_win": false,
+    "elos_before": {
+      "Jack": 1237.7682012443065,
+      "Liam": 1167.5993584661016
+    },
+    "elos_after": {
+      "Jack": 1260.3144317484773,
+      "Liam": 1145.0531279619308
+    },
+    "elo_change": {
+      "Jack": 22.546230504170808,
+      "Liam": -22.546230504170808
+    }
+  },
+  {
+    "timestamp": "2025-08-15T18:01:24.545551",
+    "date": "2025-08-15",
+    "type": "singles_series",
+    "players": [
+      "Lucas",
+      "Rishaan"
+    ],
+    "sets": [
+      {
+        "games": [
+          6,
+          3
+        ],
+        "kind": "set"
+      }
+    ],
+    "winner": "A",
+    "decided_by_tiebreak": false,
+    "comeback_win": false,
+    "elos_before": {
+      "Lucas": 1049.0632253180322,
+      "Rishaan": 1010.8497254673981
+    },
+    "elos_after": {
+      "Lucas": 1067.6769598363899,
+      "Rishaan": 992.2359909490405
+    },
+    "elo_change": {
+      "Lucas": 18.61373451835766,
+      "Rishaan": -18.61373451835766
+    }
+  },
+  {
+    "timestamp": "2025-08-15T18:01:24.576762",
+    "date": "2025-08-15",
+    "type": "doubles_series",
+    "teams": [
+      [
+        "Spencer",
+        "Cadie"
+      ],
+      [
+        "Rhys",
+        "Devin"
+      ]
+    ],
+    "sets": [
+      {
+        "games": [
+          7,
+          5
+        ],
+        "kind": "set"
+      }
+    ],
+    "winner": "A",
+    "decided_by_tiebreak": false,
+    "comeback_win": false,
+    "elos_before": {
+      "Spencer": 1173.050559113076,
+      "Cadie": 1398.0115815468428,
+      "Rhys": 1076.5159864457157,
+      "Devin": 982.7398331910596
+    },
+    "elos_after": {
+      "Spencer": 1150.6623546348426,
+      "Cadie": 1375.6233770686094,
+      "Rhys": 1098.904190923949,
+      "Devin": 1005.128037669293
+    },
+    "elo_change": {
+      "Spencer": -22.38820447823332,
+      "Cadie": -22.38820447823332,
+      "Rhys": 22.38820447823332,
+      "Devin": 22.388204478233433
+    }
+  },
+  {
+    "timestamp": "2025-08-15T18:01:24.608617",
+    "date": "2025-08-15",
+    "type": "singles_series",
+    "players": [
+      "Harvey",
+      "Owen"
+    ],
+    "sets": [
+      {
+        "games": [
+          6,
+          2
+        ],
+        "kind": "set"
+      }
+    ],
+    "winner": "A",
+    "decided_by_tiebreak": false,
+    "comeback_win": false,
+    "elos_before": {
+      "Harvey": 1191.3958958786864,
+      "Owen": 869.198731519078
+    },
+    "elos_after": {
+      "Harvey": 1180.810913184673,
+      "Owen": 879.7837142130913
+    },
+    "elo_change": {
+      "Harvey": -10.584982694013434,
+      "Owen": 10.58498269401332
+    }
+  },
+  {
+    "timestamp": "2025-08-15T18:01:24.641606",
+    "date": "2025-08-15",
+    "type": "singles_series",
+    "players": [
+      "Liam",
+      "Owen"
+    ],
+    "sets": [
+      {
+        "games": [
+          7,
+          5
+        ],
+        "kind": "tiebreak"
+      }
+    ],
+    "winner": "A",
+    "decided_by_tiebreak": true,
+    "comeback_win": false,
+    "elos_before": {
+      "Liam": 1145.0531279619308,
+      "Owen": 879.7837142130913
+    },
+    "elos_after": {
+      "Liam": 1140.3442904003277,
+      "Owen": 884.4925517746946
+    },
+    "elo_change": {
+      "Liam": -4.708837561603104,
+      "Owen": 4.708837561603218
+    }
+  },
+  {
+    "timestamp": "2025-08-15T18:01:24.673162",
+    "date": "2025-08-15",
+    "type": "singles_series",
+    "players": [
+      "Harvey",
+      "Rishaan"
+    ],
+    "sets": [
+      {
+        "games": [
+          10,
+          8
+        ],
+        "kind": "tiebreak"
+      }
+    ],
+    "winner": "A",
+    "decided_by_tiebreak": true,
+    "comeback_win": false,
+    "elos_before": {
+      "Harvey": 1180.810913184673,
+      "Rishaan": 992.2359909490405
+    },
+    "elos_after": {
+      "Harvey": 1175.766649423484,
+      "Rishaan": 997.2802547102292
+    },
+    "elo_change": {
+      "Harvey": -5.0442637611888586,
+      "Rishaan": 5.044263761188745
+    }
+  },
+  {
+    "timestamp": "2025-08-15T18:01:24.706549",
+    "date": "2025-08-15",
+    "type": "singles_series",
+    "players": [
+      "Jack",
+      "Lucas"
+    ],
+    "sets": [
+      {
+        "games": [
+          7,
+          5
+        ],
+        "kind": "tiebreak"
+      }
+    ],
+    "winner": "A",
+    "decided_by_tiebreak": true,
+    "comeback_win": false,
+    "elos_before": {
+      "Jack": 1260.3144317484773,
+      "Lucas": 1067.6769598363899
+    },
+    "elos_after": {
+      "Jack": 1258.8091724982119,
+      "Lucas": 1069.1822190866553
+    },
+    "elo_change": {
+      "Jack": -1.5052592502654534,
+      "Lucas": 1.5052592502654534
+    }
+  },
+  {
+    "timestamp": "2025-08-15T18:01:24.739511",
+    "date": "2025-08-15",
+    "type": "singles_series",
+    "players": [
+      "Cadie",
+      "Devin"
+    ],
+    "sets": [
+      {
+        "games": [
+          7,
+          3
+        ],
+        "kind": "tiebreak"
+      }
+    ],
+    "winner": "A",
+    "decided_by_tiebreak": true,
+    "comeback_win": false,
+    "elos_before": {
+      "Cadie": 1470.1356672505542,
+      "Devin": 1027.7478029529982
+    },
+    "elos_after": {
+      "Cadie": 1463.8595595995039,
+      "Devin": 1034.0239106040485
+    },
+    "elo_change": {
+      "Cadie": -6.276107651050324,
+      "Devin": 6.276107651050324
+    }
+  },
+  {
+    "timestamp": "2025-08-15T18:01:24.773233",
+    "date": "2025-08-15",
+    "type": "singles_series",
+    "players": [
+      "Harvey",
+      "Liam"
+    ],
+    "sets": [
+      {
+        "games": [
+          8,
+          6
+        ],
+        "kind": "tiebreak"
+      }
+    ],
+    "winner": "A",
+    "decided_by_tiebreak": true,
+    "comeback_win": false,
+    "elos_before": {
+      "Harvey": 1175.766649423484,
+      "Liam": 1140.3442904003277
+    },
+    "elos_after": {
+      "Harvey": 1183.2472282075194,
+      "Liam": 1132.8637116162924
+    },
+    "elo_change": {
+      "Harvey": 7.480578784035288,
+      "Liam": -7.480578784035288
+    }
+  },
+  {
+    "timestamp": "2025-08-15T18:01:24.805826",
+    "date": "2025-08-15",
+    "type": "singles_series",
+    "players": [
+      "Spencer",
+      "Rhys"
+    ],
+    "sets": [
+      {
+        "games": [
+          7,
+          2
+        ],
+        "kind": "tiebreak"
+      }
+    ],
+    "winner": "A",
+    "decided_by_tiebreak": true,
+    "comeback_win": false,
+    "elos_before": {
+      "Spencer": 1099.7419950780136,
+      "Rhys": 1196.72577234904
+    },
+    "elos_after": {
+      "Spencer": 1123.077259645647,
+      "Rhys": 1173.3905077814065
+    },
+    "elo_change": {
+      "Spencer": 23.33526456763343,
+      "Rhys": -23.33526456763343
+    }
+  },
+  {
+    "timestamp": "2025-08-15T18:01:24.839181",
+    "date": "2025-08-15",
+    "type": "singles_series",
+    "players": [
+      "Rishaan",
+      "Owen"
+    ],
+    "sets": [
+      {
+        "games": [
+          7,
+          5
+        ],
+        "kind": "tiebreak"
+      }
+    ],
+    "winner": "A",
+    "decided_by_tiebreak": true,
+    "comeback_win": false,
+    "elos_before": {
+      "Rishaan": 997.2802547102292,
+      "Owen": 884.4925517746946
+    },
+    "elos_after": {
+      "Rishaan": 1000.1487970614378,
+      "Owen": 881.624009423486
+    },
+    "elo_change": {
+      "Rishaan": 2.868542351208589,
+      "Owen": -2.868542351208589
+    }
+  },
+  {
+    "timestamp": "2025-08-15T18:01:24.871628",
+    "date": "2025-08-15",
+    "type": "singles_series",
+    "players": [
+      "Jack",
+      "Spencer"
+    ],
+    "sets": [
+      {
+        "games": [
+          7,
+          3
+        ],
+        "kind": "tiebreak"
+      }
+    ],
+    "winner": "A",
+    "decided_by_tiebreak": true,
+    "comeback_win": false,
+    "elos_before": {
+      "Jack": 1258.8091724982119,
+      "Spencer": 1123.077259645647
+    },
+    "elos_after": {
+      "Jack": 1263.9742932795648,
+      "Spencer": 1117.912138864294
+    },
+    "elo_change": {
+      "Jack": 5.165120781352925,
+      "Spencer": -5.165120781352925
+    }
+  },
+  {
+    "timestamp": "2025-08-15T18:01:24.903391",
+    "date": "2025-08-15",
+    "type": "singles_series",
+    "players": [
+      "Cadie",
+      "Harvey"
+    ],
+    "sets": [
+      {
+        "games": [
+          7,
+          2
+        ],
+        "kind": "tiebreak"
+      }
+    ],
+    "winner": "A",
+    "decided_by_tiebreak": true,
+    "comeback_win": false,
+    "elos_before": {
+      "Cadie": 1463.8595595995039,
+      "Harvey": 1183.2472282075194
+    },
+    "elos_after": {
+      "Cadie": 1464.4682024198812,
+      "Harvey": 1182.638585387142
+    },
+    "elo_change": {
+      "Cadie": 0.6086428203773266,
+      "Harvey": -0.6086428203773266
+    }
+  },
+  {
+    "timestamp": "2025-08-15T18:01:24.934629",
+    "date": "2025-08-15",
+    "type": "singles_series",
+    "players": [
+      "Cadie",
+      "Jack"
+    ],
+    "sets": [
+      {
+        "games": [
+          7,
+          5
+        ],
+        "kind": "tiebreak"
+      }
+    ],
+    "winner": "A",
+    "decided_by_tiebreak": true,
+    "comeback_win": false,
+    "elos_before": {
+      "Cadie": 1464.4682024198812,
+      "Jack": 1263.9742932795648
+    },
+    "elos_after": {
+      "Cadie": 1462.5793222277664,
+      "Jack": 1265.8631734716796
+    },
+    "elo_change": {
+      "Cadie": -1.8888801921148115,
+      "Jack": 1.8888801921148115
+    }
   }
 ]
