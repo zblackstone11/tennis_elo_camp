@@ -1,0 +1,110 @@
+Insights — 2025-08-19
+=====================
+
+Singles Leaderboard:
+ 1. Cadie        1379.2
+ 2. Aliya        1331.2
+ 3. Jack         1252.5
+ 4. Harvey       1223.2
+ 5. Rhys         1200.2
+ 6. Cooper       1196.6
+ 7. Spencer      1169.0
+ 8. Wes          1102.1
+ 9. Liam         1081.8
+10. Lucas        1069.2
+11. Rishaan      1056.2
+12. Devin        1034.0
+13. Ishaan       923.3
+14. Owen         881.6
+
+Doubles Leaderboard:
+ 1. Cadie        1349.4
+ 2. Jack         1248.3
+ 3. Cooper       1237.8
+ 4. Spencer      1196.1
+ 5. Aliya        1178.9
+ 6. Lucas        1177.5
+ 7. Liam         1141.6
+ 8. Rhys         1128.1
+ 9. Wes          1111.3
+10. Harvey       1037.0
+11. Rishaan      1025.7
+12. Devin        1005.1
+13. Ishaan       953.4
+14. Owen         909.8
+
+Top Risers (Singles, today):
+ +1) Rishaan      +56.1
+ +2) Jack         +50.2
+ +3) Rhys         +43.6
+ +4) Aliya        +31.2
+
+Top Sliders (Singles, today):
+ -1) Cadie        -81.4
+ -2) Ishaan       -76.7
+ -3) Harvey       -23.0
+
+Top Risers (Doubles, today):
+ +1) Rishaan      +46.6
+ +2) Rhys         +46.6
+ +3) Spencer      +45.2
+ +4) Jack         +24.1
+
+Top Sliders (Doubles, today):
+ -1) Ishaan       -46.6
+ -2) Harvey       -46.6
+ -3) Liam         -45.2
+ -4) Aliya        -21.1
+ -5) Cooper       -3.0
+
+Active Win Streaks — Singles:
+  1. Harvey       2
+  2. Spencer      1
+  3. Rishaan      1
+  4. Rhys         1
+  5. Jack         1
+  6. Cooper       1
+  7. Aliya        1
+
+Active Win Streaks — Doubles:
+  1. Spencer      4
+  2. Rishaan      2
+  3. Wes          1
+  4. Rhys         1
+  5. Jack         1
+
+Daily Stats:
+ Matches — Singles: 6, Doubles: 3
+ Sets: 9 | Tiebreaks: 0 | Bagels: 1
+ Participants: 10
+
+Match Log:
+ - [Singles] Jack def. Cadie  4-5  (Δ +50.2)
+ - [Singles] Rhys def. Ishaan  0-6  (Δ +39.0)
+ - [Singles] Harvey def. Rishaan  6-4  (Δ -18.4)
+ - [Singles] Aliya def. Cadie  5-4  (Δ +31.2)
+ - [Singles] Rhys tied Harvey  5-5  (Δ +0.0)
+ - [Singles] Rishaan def. Ishaan  1-6  (Δ +37.7)
+ - [Doubles] Spencer & Cooper def. Liam & Aliya  2-4  (team Δ +42.3)
+ - [Doubles] Jack & Spencer def. Cooper & Liam  6-3  (team Δ +48.2)
+ - [Doubles] Rishaan & Rhys def. Ishaan & Harvey  1-6  (team Δ +93.2)
+
+Highlights:
+ Upsets:
+  - Singles upset: Jack def. Cadie 4-5 (pre E_B=0.18, Δ +50.2)
+  - Singles upset: Aliya def. Cadie 5-4 (pre E_A=0.35, Δ +31.2)
+  - Doubles upset: Jack & Spencer def. Cooper & Liam 6-3 (pre E_A=0.48, team Δ +48.2)
+  - Doubles upset: Rishaan & Rhys def. Ishaan & Harvey 1-6 (pre E_B=0.48, team Δ +93.2)
+
+Records & Milestones:
+ - Aliya: new doubles peak 1200.0
+ - Aliya: new singles peak 1331.2
+ - Cooper: new doubles peak 1261.9
+ - Ishaan: new doubles peak 1000.0
+ - Ishaan: new singles peak 1000.0
+ - Jack: new doubles peak 1248.3
+ - Rhys: new doubles peak 1128.1
+ - Rhys: new singles peak 1200.2
+ - Rishaan: new doubles peak 1025.7
+ - Rishaan: new singles peak 1056.2
+ - Spencer: new doubles peak 1196.1
