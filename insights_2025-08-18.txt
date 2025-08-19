@@ -1,0 +1,100 @@
+Insights — 2025-08-18
+=====================
+
+Singles Leaderboard:
+ 1. Cadie        1460.5
+ 2. Harvey       1246.1
+ 3. Jack         1202.4
+ 4. Cooper       1196.6
+ 5. Spencer      1169.0
+ 6. Rhys         1156.6
+ 7. Wes          1102.1
+ 8. Liam         1081.8
+ 9. Lucas        1069.2
+10. Devin        1034.0
+11. Rishaan      1000.1
+12. Owen         881.6
+
+Doubles Leaderboard:
+ 1. Cadie        1349.4
+ 2. Cooper       1240.8
+ 3. Jack         1224.2
+ 4. Liam         1186.8
+ 5. Lucas        1177.5
+ 6. Spencer      1150.8
+ 7. Wes          1111.3
+ 8. Harvey       1083.6
+ 9. Rhys         1081.5
+10. Devin        1005.1
+11. Rishaan      979.1
+12. Owen         909.8
+
+Top Risers (Singles, today):
+ +1) Harvey       +63.5
+ +2) Spencer      +51.1
+ +3) Cooper       +16.8
+ +4) Wes          +2.1
+
+Top Sliders (Singles, today):
+ -1) Jack         -63.5
+ -2) Liam         -51.1
+ -3) Rhys         -16.8
+ -4) Cadie        -2.1
+
+Top Risers (Doubles, today):
+ +1) Jack         +37.4
+ +2) Cooper       +32.3
+ +3) Wes          +11.3
+ +4) Spencer      +0.2
+
+Top Sliders (Doubles, today):
+ -1) Cadie        -26.2
+ -2) Liam         -26.2
+ -3) Rhys         -17.4
+ -4) Harvey       -11.4
+
+Active Win Streaks — Singles:
+  1. Cadie        9
+  2. Spencer      1
+  3. Rishaan      1
+  4. Harvey       1
+  5. Cooper       1
+
+Active Win Streaks — Doubles:
+  1. Cooper       3
+  2. Spencer      2
+  3. Wes          1
+  4. Rishaan      1
+  5. Harvey       1
+
+Daily Stats:
+ Matches — Singles: 4, Doubles: 6
+ Sets: 10 | Tiebreaks: 4 | Bagels: 0
+ Participants: 8
+
+Match Log:
+ - [Singles] Cadie def. Wes  6-1  (Δ -2.1)
+ - [Singles] Cooper def. Rhys  6-4  (Δ +16.8)
+ - [Singles] Harvey def. Jack  6-1  (Δ +63.5)
+ - [Singles] Spencer def. Liam  1-6  (Δ +51.1)
+ - [Doubles] Cadie & Liam def. Wes & Spencer  6-2  (team Δ +9.5)
+ - [Doubles] Cooper & Jack def. Harvey & Rhys  1-6  (team Δ +54.8)
+ - [Doubles] Spencer & Cooper def. Wes & Harvey  7-5[tiebreak]  (team Δ +0.9) (TB decider)
+ - [Doubles] Rhys & Jack def. Cadie & Liam  5-7[tiebreak]  (team Δ +28.9) (TB decider)
+ - [Doubles] Spencer & Cooper def. Jack & Rhys  7-5[tiebreak]  (team Δ +8.9) (TB decider)
+ - [Doubles] Wes & Harvey def. Cadie & Liam  5-7[tiebreak]  (team Δ +33.0) (TB decider)
+
+Highlights:
+ Upsets:
+  - Doubles upset: Wes & Harvey def. Cadie & Liam 5-7[tiebreak] (pre E_B=0.24, team Δ +33.0)
+  - Doubles upset: Rhys & Jack def. Cadie & Liam 5-7[tiebreak] (pre E_B=0.29, team Δ +28.9)
+  - Singles upset: Harvey def. Jack 6-1 (pre E_A=0.38, Δ +63.5)
+  - Singles upset: Spencer def. Liam 1-6 (pre E_B=0.48, Δ +51.1)
+
+Records & Milestones:
+ - Cooper: new doubles peak 1240.8
+ - Harvey: new singles peak 1246.1
+ - Jack: new doubles peak 1228.6
+ - Liam: new doubles peak 1217.7
+ - Wes: new doubles peak 1111.3
+ - Wes: new singles peak 1103.7
